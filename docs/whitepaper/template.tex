@@ -1,0 +1,85 @@
+% PicoFlow whitepaper LaTeX template — warm enterprise (cream paper, slate ink)
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=2.4cm,headheight=14pt]{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+% --- PicoFlow palette ---
+\definecolor{paper}{HTML}{F8F6F1}
+\definecolor{cream}{HTML}{FCFAF5}
+\definecolor{ink}{HTML}{1E2330}
+\definecolor{ink2}{HTML}{4A5468}
+\definecolor{indigo}{HTML}{3B5BDB}
+\definecolor{emerald}{HTML}{10B981}
+\definecolor{amber}{HTML}{F59E0B}
+\definecolor{coral}{HTML}{EF4444}
+\definecolor{hairline}{HTML}{E5E0D6}
+\definecolor{parchment}{HTML}{FBF7EE}
+
+\pagecolor{paper}
+\color{ink}
+
+% --- Fonts (fall back gracefully if not installed) ---
+\IfFontExistsTF{Inter}{\setmainfont{Inter}}{}
+\IfFontExistsTF{Newsreader}{\setromanfont{Newsreader}}{}
+\IfFontExistsTF{JetBrains Mono}{\setmonofont{JetBrains Mono}[Scale=0.92]}{}
+
+% --- Headings ---
+\titleformat{\section}{\Large\bfseries\color{ink}}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{indigo}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{ink2}}{\thesubsubsection}{0.6em}{}
+
+% --- Header / footer ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{ink2}PicoFlow Whitepaper}
+\fancyhead[R]{\small\color{ink2}$title$ — $version$}
+\fancyfoot[C]{\small\color{ink2}\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% --- Hyperlinks ---
+\hypersetup{
+  colorlinks=true,
+  linkcolor=indigo,
+  urlcolor=indigo,
+  citecolor=indigo,
+  pdftitle={$title$},
+  pdfauthor={$author$}
+}
+
+% --- Title block ---
+\title{\vspace{-1.5cm}\Huge\bfseries\color{ink}$title$\\[0.3em]\Large\color{indigo}\mdseries$subtitle$}
+\author{\large\color{ink2}$author$}
+\date{\large\color{ink2}$date$ \quad\textbar\quad $version$}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\vspace{1cm}
+
+\begin{quote}
+\itshape\color{ink2}$abstract$
+\end{quote}
+
+\vspace{1cm}
+\hrule height 0.4pt
+\vspace{0.5cm}
+
+\tableofcontents
+\newpage
+
+$body$
+
+\end{document}

@@ -1,0 +1,22 @@
+{
+  "chainId": 5042002,
+  "rpc": "https://rpc.testnet.arc.network",
+  "deployer": "0x5257613C0a0b87405d08B21c62Be3F65CbD0a5bF",
+  "contracts": {
+    "BondVault": {
+      "address": "0x00792829C3553B95A84bafe33c76E93570D0AbA4",
+      "tx_hash": "",
+      "deployed_at": 1777106976
+    },
+    "ReputationRegistry": {
+      "address": "0x8Cf86bA01806452B336369D4a25466c34951A086",
+      "tx_hash": "",
+      "deployed_at": 1777106977
+    },
+    "MetadataLogger": {
+      "address": "0x2853EDc8BAa06e7A7422CCda307ED3E7f0E96FA8",
+      "tx_hash": "",
+      "deployed_at": 1777106979
+    }
+  }
+}

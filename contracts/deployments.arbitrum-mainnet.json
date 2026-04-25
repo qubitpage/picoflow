@@ -1,0 +1,29 @@
+{
+  "network": "arbitrum-mainnet",
+  "chainId": 42161,
+  "rpc": "https://arb1.arbitrum.io/rpc",
+  "rpc_pool": [
+    "https://arb1.arbitrum.io/rpc",
+    "https://arbitrum.llamarpc.com",
+    "https://arbitrum-one.publicnode.com"
+  ],
+  "deployer": "0x3854510d4C159d5d97646d4CBfEEc06BEF983E66",
+  "deployed_at": 1777123077,
+  "contracts": {
+    "BondVault": {
+      "address": "0x140A306E5c51C8521827e9be1E5167399dc31c75",
+      "deployed_at": 1777123068,
+      "code_bytes": 2640
+    },
+    "ReputationRegistry": {
+      "address": "0x6BCFa75Cf8E1B01828F69625cD0ba6E50237B390",
+      "deployed_at": 1777123073,
+      "code_bytes": 970
+    },
+    "MetadataLogger": {
+      "address": "0xc10e0B31A9dE86c15298047742594163fb0D20Cd",
+      "deployed_at": 1777123077,
+      "code_bytes": 121
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "name": "@picoflow/x402-facilitator",
+    "version": "0.2.0",
+  "description": "Reference TypeScript x402 facilitator: build/verify HTTP 402 challenges, EIP-3009 signature recovery, JSON Schema validation, price_quote negotiation. Framework-agnostic. Designed as an open reference for the @circle/x402-facilitator gap noted in Circle Arc developer feedback.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./schema": {
+      "types": "./dist/schema.d.ts",
+      "import": "./dist/schema.js"
+    },
+    "./express": {
+      "types": "./dist/adapters/express.d.ts",
+      "import": "./dist/adapters/express.js"
+    }
+  },
+  "files": [
+    "dist",
+    "schema/payment-required.schema.json",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -w -p tsconfig.json",
+    "test": "node --test --import tsx dist/__tests__/*.test.js"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.9.0",
+    "express": "^4.21.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "express": "^4.0.0 || ^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "express": {
+      "optional": true
+    }
+  },
+  "keywords": ["x402", "http-402", "circle", "arc", "usdc", "eip-3009", "facilitator", "agentic"]
+}

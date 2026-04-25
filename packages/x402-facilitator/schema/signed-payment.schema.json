@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://picoflow.qubitpage.com/schema/signed-payment.schema.json",
+  "title": "x402 SignedPayment",
+  "description": "Body of the X-PAYMENT header (base64-decoded). Buyer-signed EIP-3009 transferWithAuthorization payload.",
+  "type": "object",
+  "required": ["from", "to", "value", "validAfter", "validBefore", "nonce", "signature"],
+  "additionalProperties": false,
+  "properties": {
+    "from":        { "type": "string", "pattern": "^0x[a-fA-F0-9]{40}$" },
+    "to":          { "type": "string", "pattern": "^0x[a-fA-F0-9]{40}$" },
+    "value":       { "type": "string", "pattern": "^[0-9]+$" },
+    "validAfter":  { "type": "integer", "minimum": 0 },
+    "validBefore": { "type": "integer", "minimum": 0 },
+    "nonce":       { "type": "string", "pattern": "^0x[a-fA-F0-9]{64}$" },
+    "signature":   { "type": "string", "pattern": "^0x[a-fA-F0-9]{130}$" }
+  }
+}

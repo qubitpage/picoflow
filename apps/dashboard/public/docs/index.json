@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-04-25T20:41:43.725Z",
+  "docs": [
+    {
+      "slug": "picoflow-whitepaper",
+      "title": "PicoFlow — Unified Whitepaper v0.4",
+      "category": "Whitepaper",
+      "description": "Single source of truth: concept, architecture, customer API flow, mainnet/testnet proof, provider stack, testing, operations, and delivery report.",
+      "pdf": {
+        "url": "/docs/picoflow-whitepaper.pdf",
+        "bytes": 612270
+      },
+      "html": {
+        "url": "/docs/picoflow-whitepaper.html",
+        "bytes": 80849
+      },
+      "source_md": "/docs/picoflow-whitepaper.md"
+    },
+    {
+      "slug": "picoflow-pitch-deck",
+      "title": "PicoFlow — Pitch Deck",
+      "category": "Pitch Deck",
+      "description": "Concise investor/judge presentation: problem, insight, live proof, sponsor coverage, economics, and roadmap.",
+      "pdf": {
+        "url": "/docs/picoflow-pitch-deck.pdf",
+        "bytes": 49675
+      },
+      "html": {
+        "url": "/docs/picoflow-pitch-deck.html",
+        "bytes": 11487
+      },
+      "source_md": "/docs/picoflow-pitch-deck.md"
+    }
+  ]
+}

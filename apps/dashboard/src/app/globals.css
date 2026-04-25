@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+html, body {
+  background: #F8F6F1;
+  color: #1E2330;
+  font-family: Inter, system-ui, sans-serif;
+}
+.card {
+  @apply bg-cream border border-ink/10 rounded-2xl p-6 shadow-sm;
+}
+.kbd {
+  @apply font-mono text-xs bg-ink/5 border border-ink/10 rounded px-1.5 py-0.5;
+}
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-sm font-medium border border-ink/15 bg-cream hover:bg-ink/5 transition disabled:opacity-50;
+}
+.btn-sm {
+  @apply px-2 py-1 text-xs;
+}
+.btn-primary {
+  @apply bg-indigo text-cream border-indigo hover:bg-indigo/90;
+}
+.btn-danger {
+  @apply text-coral border-coral/40 hover:bg-coral/5;
+}
+.input {
+  @apply rounded-lg border border-ink/15 bg-cream px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo/40;
+}
+.input-sm {
+  @apply px-2 py-1 text-xs;
+}

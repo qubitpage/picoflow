@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>PicoFlow — Pitch Deck</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="picoflow-docs.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">PicoFlow — Pitch Deck</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#picoflow" id="toc-picoflow">PicoFlow</a>
+<ul>
+<li><a href="#the-hook" id="toc-the-hook">The Hook</a></li>
+<li><a href="#the-problem" id="toc-the-problem">The Problem</a></li>
+<li><a href="#the-insight" id="toc-the-insight">The Insight</a></li>
+<li><a href="#solution-five-layers"
+id="toc-solution-five-layers">Solution — Five Layers</a></li>
+<li><a href="#live-demo-real-proof-not-fake-mainnet"
+id="toc-live-demo-real-proof-not-fake-mainnet">Live demo: real proof,
+not fake mainnet</a></li>
+<li><a href="#differentiation"
+id="toc-differentiation">Differentiation</a></li>
+<li><a href="#sponsor-coverage-15" id="toc-sponsor-coverage-15">Sponsor
+Coverage (15)</a></li>
+<li><a href="#margin-story" id="toc-margin-story">Margin Story</a></li>
+<li><a href="#trust-layer" id="toc-trust-layer">Trust Layer</a></li>
+<li><a href="#roadmap" id="toc-roadmap">Roadmap</a></li>
+</ul></li>
+<li><a href="#thank-you." id="toc-thank-you.">Thank you.</a></li>
+</ul>
+</nav>
+<!-- _class: cover -->
+<h1 id="picoflow">PicoFlow</h1>
+<div class="tag">
+<strong>The Agentic Settlement Mesh on Arc</strong>
+</div>
+<p><em>Every API call gets a price, a ledger row, a cost row, and a
+settlement proof path.</em></p>
+<h6
+id="built-for-the-lablab.ai-build-the-agentic-economy-on-arc-using-usdc-and-nanopayments-hackathon-april-2026">Built
+for the lablab.ai <em>Build the Agentic Economy on Arc using USDC and
+Nanopayments</em> hackathon — April 2026</h6>
+<hr />
+<h2 id="the-hook">The Hook</h2>
+<blockquote>
+<p><strong>AI agents will run 90 % of internet transactions by
+2030.</strong> None of today’s payment rails work for them.</p>
+</blockquote>
+<ul>
+<li>Stripe minimums: $0.30 + 2.9 % ⇒ break-even ≈ $10</li>
+<li>Raw onchain (even on Arc): ≈ $0.009 per transfer ⇒ break-even ≈
+$0.05</li>
+<li>Manual API keys + KYC: agents can’t do that</li>
+</ul>
+<p><strong>Result today:</strong> the entire sub-cent agentic economy is
+locked behind subscription middlemen.</p>
+<hr />
+<h2 id="the-problem">The Problem</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Per-tx cost</th>
+<th>Min. viable price</th>
+<th>$0.005 calls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card (Stripe)</td>
+<td>$0.30 + 2.9 %</td>
+<td>~$10</td>
+<td>❌ negative margin</td>
+</tr>
+<tr>
+<td>Raw onchain (Arc)</td>
+<td>~$0.009</td>
+<td>~$0.05</td>
+<td>❌ negative margin</td>
+</tr>
+<tr>
+<td><strong>PicoFlow (Gateway-batched x402)</strong></td>
+<td><strong>amortised</strong></td>
+<td><strong>$0.000001</strong></td>
+<td>✅ profitable</td>
+</tr>
+</tbody>
+</table>
+<p>a16z’s <em>Cloud Paradox</em> — $100 B of margin sits with cloud
+middlemen because billing happens at the wrong granularity. PicoFlow
+makes per-action the default unit.</p>
+<hr />
+<h2 id="the-insight">The Insight</h2>
+<p><strong>Three primitives, in production today, finally
+compose:</strong></p>
+<ol type="1">
+<li><strong>HTTP 402</strong> — the dormant payment-required status,
+revived as the <em>x402</em> protocol</li>
+<li><strong>Arc</strong> — USDC as native gas, Malachite ≈ 387 ms
+finality</li>
+<li><strong>Circle Gateway / Nanopayments</strong> — offchain EIP-3009
+authorizations batched and net-settled onchain</li>
+</ol>
+<p>Together: <strong>$0.000001-resolution USDC payments that are real,
+atomic, and auditable.</strong></p>
+<p>PicoFlow is honest about chain status:</p>
+<ul>
+<li><strong>Arbitrum One <code>42161</code></strong> — live real-funds
+mainnet proof today.</li>
+<li><strong>Arc Testnet <code>5042002</code></strong> — Arc-native
+contract and settlement rehearsal.</li>
+<li><strong>Arc Mainnet</strong> — drop-in target when Circle publishes
+it.</li>
+</ul>
+<hr />
+<h2 id="solution-five-layers">Solution — Five Layers</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NanoMeter Core</strong></td>
+<td>x402 server SDK + Gemini orchestrator + Postgres ledger</td>
+</tr>
+<tr>
+<td><strong>TollBooth</strong></td>
+<td>drop-in Express/Caddy proxy: any API → x402 in 5 lines</td>
+</tr>
+<tr>
+<td><strong>ProofMesh</strong></td>
+<td>ERC-8004 reputation + USDC bond / slash / refund (Vyper)</td>
+</tr>
+<tr>
+<td><strong>Rev-Split</strong></td>
+<td>atomic OSS dependency payouts via <code>splits[]</code></td>
+</tr>
+<tr>
+<td><strong>StreamMeter</strong></td>
+<td>sub-cent per-tick WebSocket billing (literal $0.000001 floor)</td>
+</tr>
+</tbody>
+</table>
+<p>Plus: full-CRUD admin, <em>Explain-like-I’m-five</em> boxes on every
+widget, EN/RO/ES/FR/DE i18n.</p>
+<hr />
+<h2 id="live-demo-real-proof-not-fake-mainnet">Live demo: real proof,
+not fake mainnet</h2>
+<p>The homepage and network page show both lanes clearly:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Lane</th>
+<th>Purpose</th>
+<th>What judges should trust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arbitrum One mainnet</td>
+<td>real USDC working example</td>
+<td>public mainnet addresses, live ledger, real-funds UX</td>
+</tr>
+<tr>
+<td>Arc Testnet</td>
+<td>sponsor-native execution path</td>
+<td>Vyper contracts, USDC-gas semantics, ProofMesh events</td>
+</tr>
+<tr>
+<td>Arc Mainnet</td>
+<td>future target</td>
+<td>same product redeployed by chain config</td>
+</tr>
+</tbody>
+</table>
+<pre><code>$ pnpm demo:run
+✅ paid API calls ≤ $0.01 each
+✅ provider_costs populated
+✅ action_id returned in response headers
+✅ settlement states kept honest: intent/submitted/confirmed/failed</code></pre>
+<hr />
+<h2 id="differentiation">Differentiation</h2>
+<p>PicoFlow is built around product primitives that work together as one
+settlement mesh:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Capability</th>
+<th>PicoFlow implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open marketplace</td>
+<td>Any API can publish a paid capability</td>
+</tr>
+<tr>
+<td>1-line seller onboarding</td>
+<td>TollBooth middleware wraps Express endpoints</td>
+</tr>
+<tr>
+<td>Onchain reputation bonds</td>
+<td>ProofMesh / ERC-8004-style staking, slash, refund path</td>
+</tr>
+<tr>
+<td>Atomic OSS rev-split</td>
+<td>80/10/10 split rows for seller, platform, dependency pool</td>
+</tr>
+<tr>
+<td>Sub-cent streaming</td>
+<td>StreamMeter supports $0.000001 ticks</td>
+</tr>
+<tr>
+<td>Validator selection</td>
+<td>Verifiable-random audit assignment path</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sponsor-coverage-15">Sponsor Coverage (15)</h2>
+<p><strong>Arc</strong> · <strong>Circle USDC</strong> · <strong>Circle
+Nanopayments</strong> · <strong>Circle Gateway</strong> ·
+<strong>x402</strong> · <strong>Circle App Kit / Bridge Kit</strong> ·
+<strong>Circle Wallets</strong> · <strong>Circle MCP / Skills</strong> ·
+<strong>Gemini</strong> · <strong>Google AI Studio</strong> ·
+<strong>Featherless</strong> · <strong>AI/ML API</strong> ·
+<strong>AIsa</strong> · <strong>ERC-8004</strong> · <strong>Vyper /
+titanoboa</strong></p>
+<blockquote>
+<p>Every sponsor has at least one <em>hero moment</em> visible in the
+dashboard with a direct artifact link: real Arbitrum tx, Arc contract
+address, Arc faucet tx, Gateway/network panel, Gemini transcript,
+provider status, ProofMesh event, etc.</p>
+</blockquote>
+<hr />
+<h2 id="margin-story">Margin Story</h2>
+<pre><code>For a $0.005 paid action:
+
+  Card    : -$0.295   ← $0.30 + 2.9 % fixed fee, completely impossible
+  Onchain :  -$0.004  ← raw transfer costs more than the action
+  PicoFlow: +$0.0049  ← amortised across batch (N=1000)</code></pre>
+<p>Four orders of magnitude below the raw-onchain floor. <strong>This is
+the missing rail.</strong></p>
+<p>Live cost accounting is now visible: the ledger records
+<code>provider_costs</code> for Featherless, AI/ML API, AIsa/Kraken and
+the validator lane, so margin is no longer only a revenue claim.</p>
+<hr />
+<h2 id="trust-layer">Trust Layer</h2>
+<ul>
+<li><strong>ProofMesh bonds</strong>: sellers post USDC, validators
+slash on failure</li>
+<li><strong>Validator economics</strong>: pay $0.0015, earn $0.0025 on
+successful slash</li>
+<li><strong>BlueQubit / IBM Quantum</strong> verifiable randomness picks
+which validator audits which claim — uncolludable</li>
+<li><strong>Insurance pool</strong> auto-refunds buyers on validation
+failure</li>
+<li><strong>ERC-8004</strong> reputation registry — standards-compliant,
+queryable</li>
+</ul>
+<blockquote>
+<p><em>The product thesis is simple: the AI economy needs a payment rail
+where model calls, validators, and dependency authors can all be paid
+below one cent.</em></p>
+</blockquote>
+<hr />
+<h2 id="roadmap">Roadmap</h2>
+<p>10 toggle-able post-hackathon modules already designed:</p>
+<p>Auto-budget caps · Compliance/tax mode · Sponsor SDK demo cards ·
+Public seller profiles · Replay mode · Carbon-aware routing · Quantum
+validator selection · Agent-to-agent tipping · Multi-language explainers
+· Onchain insurance feed.</p>
+<p><strong>Long term:</strong> PicoFlow as the <strong>operating system
+of the agentic economy</strong> — the BGP of pay-per-action.</p>
+<hr />
+<!-- _class: cover -->
+<h1 id="thank-you.">Thank you.</h1>
+<div class="tag">
+PicoFlow — <em>The Agentic Settlement Mesh on Arc</em>
+</div>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr>
+<td><strong>Demo</strong></td>
+<td>https://picoflow.qubitpage.com</td>
+</tr>
+<tr>
+<td><strong>GitHub</strong></td>
+<td>https://github.com/qubitpage/picoflow</td>
+</tr>
+<tr>
+<td><strong>Arc Wallet</strong></td>
+<td>https://testnet.arcscan.app/address/0x5257613C0a0b87405d08B21c62Be3F65CbD0a5bF</td>
+</tr>
+<tr>
+<td><strong>Contact</strong></td>
+<td>contact@qubitpage.com</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,15 @@
+
+:root{--paper:#F8F6F1;--cream:#FCFAF5;--ink:#1E2330;--muted:#4A5468;--indigo:#3B5BDB;--emerald:#10B981;--amber:#F59E0B;--line:#E5E0D6}
+html{background:var(--paper);color:var(--ink)}
+body{max-width:980px;margin:0 auto;padding:48px 24px 80px;font:16px/1.68 Inter,Segoe UI,system-ui,sans-serif;background:linear-gradient(180deg,var(--cream),var(--paper));box-shadow:0 0 0 1px var(--line),0 24px 80px rgba(30,35,48,.10)}
+h1,h2,h3{line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
+h1{font-size:42px;margin-top:0;border-bottom:2px solid var(--line);padding-bottom:18px}h2{font-size:28px;margin-top:42px;color:var(--indigo)}h3{font-size:21px;margin-top:28px}
+p,li{color:var(--muted)}strong{color:var(--ink)}a{color:var(--indigo)}
+table{width:100%;border-collapse:collapse;margin:24px 0;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px var(--line);break-inside:auto}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top}th{background:#EEF2FF;color:#1E3A8A;text-align:left}
+pre{background:#111827;color:#F9FAFB;border-radius:16px;padding:18px;overflow:auto;font-size:13px;line-height:1.55}code{font-family:JetBrains Mono,Consolas,monospace}p code,li code{background:#EEF2FF;color:#1E3A8A;border-radius:6px;padding:2px 5px}
+blockquote{border-left:5px solid var(--indigo);background:#EEF2FF;margin:24px 0;padding:14px 18px;border-radius:0 14px 14px 0}
+img{display:block;max-width:100%;height:auto;border-radius:18px;border:1px solid var(--line);box-shadow:0 14px 40px rgba(30,35,48,.10);background:#fff;margin:18px auto}
+p:has(> img){margin:34px 0;padding:16px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 50px rgba(30,35,48,.08);break-inside:avoid;page-break-inside:avoid}
+figure{margin:34px 0;padding:16px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 50px rgba(30,35,48,.08);break-inside:avoid}figcaption{text-align:center;color:var(--muted);font-size:13px;margin-top:8px}
+#TOC{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 20px;margin:24px 0}#TOC ul{margin:.4rem 0}.title{font-size:46px;font-weight:800}.subtitle{color:var(--indigo);font-size:22px;font-weight:700}.author,.date{color:var(--muted)}
+@media print{body{box-shadow:none}p:has(> img),figure{page-break-inside:avoid}h1,h2,h3{page-break-after:avoid}}

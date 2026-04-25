@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="460" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+  <title id="title">PicoFlow provider stack and data processing</title>
+  <desc id="desc">Diagram of providers, route planner, ledger, cost accounting and customer API key access.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#3B5BDB"/></marker></defs>
+  <rect width="1200" height="460" rx="28" fill="#FCFAF5"/>
+  <text x="52" y="58" font-family="Inter,Segoe UI,Arial" font-size="31" font-weight="800" fill="#1E2330">Provider roles and data flow</text>
+  <text x="52" y="88" font-family="Inter,Segoe UI,Arial" font-size="16" fill="#4A5468">The customer sees one PicoFlow API key. Behind it, route planning, provider calls, cost rows, and settlement states stay auditable.</text>
+  <g font-family="Inter,Segoe UI,Arial">
+    <rect x="52" y="140" width="190" height="176" rx="20" fill="#EEF2FF" stroke="#3B5BDB"/>
+    <text x="78" y="178" font-size="19" font-weight="800" fill="#1E3A8A">Customer</text>
+    <text x="78" y="208" font-size="13" fill="#4A5468">API key auth</text>
+    <text x="78" y="232" font-size="13" fill="#4A5468">normal curl/fetch</text>
+    <text x="78" y="256" font-size="13" fill="#4A5468">optional x402 wallet</text>
+    <rect x="315" y="118" width="250" height="220" rx="20" fill="#F8F6F1" stroke="#D9D5CC"/>
+    <text x="342" y="154" font-size="19" font-weight="800" fill="#1E2330">PicoFlow route core</text>
+    <text x="342" y="186" font-size="13" fill="#4A5468">• API key + org quota</text>
+    <text x="342" y="210" font-size="13" fill="#4A5468">• x402 challenge/verify</text>
+    <text x="342" y="234" font-size="13" fill="#4A5468">• Gemini task planning</text>
+    <text x="342" y="258" font-size="13" fill="#4A5468">• price + max budget</text>
+    <text x="342" y="282" font-size="13" fill="#4A5468">• action_id response header</text>
+    <g transform="translate(640 106)">
+      <rect width="210" height="64" rx="15" fill="#ECFDF5" stroke="#10B981"/><text x="20" y="29" font-size="15" font-weight="800" fill="#065F46">Gemini / Google AI</text><text x="20" y="49" font-size="12" fill="#047857">planner + tool loop</text>
+      <rect y="80" width="210" height="64" rx="15" fill="#F8F6F1" stroke="#D9D5CC"/><text x="20" y="109" font-size="15" font-weight="800" fill="#1E2330">Featherless</text><text x="20" y="129" font-size="12" fill="#4A5468">open model inference</text>
+      <rect y="160" width="210" height="64" rx="15" fill="#F8F6F1" stroke="#D9D5CC"/><text x="20" y="189" font-size="15" font-weight="800" fill="#1E2330">AI/ML API</text><text x="20" y="209" font-size="12" fill="#4A5468">OpenAI-compatible breadth</text>
+      <rect y="240" width="210" height="64" rx="15" fill="#F8F6F1" stroke="#D9D5CC"/><text x="20" y="269" font-size="15" font-weight="800" fill="#1E2330">AIsa + Kraken</text><text x="20" y="289" font-size="12" fill="#4A5468">data/oracle path</text>
+    </g>
+    <rect x="930" y="135" width="220" height="210" rx="20" fill="#1E2330"/>
+    <text x="958" y="174" font-size="19" font-weight="800" fill="#FCFAF5">Ledger + proof</text>
+    <text x="958" y="210" font-size="13" fill="#E5E7EB">actions</text>
+    <text x="958" y="234" font-size="13" fill="#E5E7EB">provider_costs</text>
+    <text x="958" y="258" font-size="13" fill="#E5E7EB">settlements</text>
+    <text x="958" y="282" font-size="13" fill="#E5E7EB">splits</text>
+    <text x="958" y="306" font-size="13" fill="#E5E7EB">ProofMesh events</text>
+  </g>
+  <g stroke="#3B5BDB" stroke-width="3" marker-end="url(#arrow)"><path d="M246 228 H306"/><path d="M570 228 H628"/><path d="M856 228 H920"/></g>
+  <text x="52" y="400" font-family="Inter,Segoe UI,Arial" font-size="14" fill="#4A5468">API-key product value: customers do not integrate every provider separately; PicoFlow gives one authenticated endpoint, one ledger, one settlement path, and one invoice-free USDC rail.</text>
+</svg>

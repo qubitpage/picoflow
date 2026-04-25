@@ -1,0 +1,83 @@
+name: picoflow
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-picoflow}
+      POSTGRES_USER: ${DB_USER:-picoflow}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-picoflow}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-picoflow}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    ports:
+      - "127.0.0.1:6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  sellers:
+    build:
+      context: .
+      dockerfile: infrastructure/Dockerfile.node
+      args:
+        ENTRY: apps/seller-agents/dist/server.js
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      SELLER_PORT: 3030
+    depends_on:
+      postgres: { condition: service_healthy }
+    ports: ["127.0.0.1:3030:3030"]
+
+  stream:
+    build:
+      context: .
+      dockerfile: infrastructure/Dockerfile.node
+      args:
+        ENTRY: apps/seller-agents/dist/stream.js
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      STREAM_PORT: 3024
+    depends_on:
+      postgres: { condition: service_healthy }
+    ports: ["127.0.0.1:3024:3024"]
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: infrastructure/Dockerfile.next
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      NODE_ENV: production
+    depends_on:
+      postgres: { condition: service_healthy }
+    ports: ["127.0.0.1:3000:3000"]
+
+volumes:
+  pg_data:
+  redis_data:

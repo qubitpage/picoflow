@@ -1,0 +1,73 @@
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p8
+*.p12
+*.crt
+infrastructure/vultr-state.json
+infrastructure/*.secret.*
+
+# Node
+node_modules/
+.pnpm-store/
+dist/
+build/
+.next/
+.turbo/
+coverage/
+*.tsbuildinfo
+
+# Python / local tooling
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Docs build output
+docs/whitepaper/dist/
+docs/pitch/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+test-results/
+playwright-report/
+
+# Local deployment bundles / scratch files
+.tmp/
+.tmp*
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+*.bak
+*.tmp
+
+# Contracts artifacts
+contracts/out/
+contracts/cache/
+contracts/.compiled/
+
+# Vyper deployer secret
+contracts/.deployer.secret.json
+contracts/.*.secret.json
+.env.credentials
+
+# Databases / local state
+*.sqlite
+*.sqlite3
+*.db

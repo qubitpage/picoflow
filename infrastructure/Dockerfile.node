@@ -1,0 +1,29 @@
+# Generic Node 22 image for the seller / stream / buyer-agent processes.
+#
+#   docker build -f infrastructure/Dockerfile.node \
+#     --build-arg ENTRY=apps/seller-agents/dist/server.js -t picoflow/sellers .
+FROM node:22-alpine AS build
+RUN corepack enable
+WORKDIR /repo
+# Copy lockfiles + manifests first (layer cache)
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* ./
+COPY tsconfig.base.json ./
+COPY packages ./packages
+COPY apps ./apps
+COPY scripts ./scripts
+RUN pnpm install --frozen-lockfile=false
+RUN find . -name tsconfig.tsbuildinfo -delete && find packages -name dist -type d -prune -exec rm -rf {} +
+RUN pnpm --filter "@picoflow/nanometer-core" run build && \
+    pnpm --filter "@picoflow/x402-facilitator" run build && \
+    pnpm --filter "@picoflow/tollbooth" run build && \
+    pnpm --filter "@picoflow/sellers" run build && \
+    pnpm --filter "@picoflow/buyer-agent" run build
+
+FROM node:22-alpine AS run
+RUN corepack enable
+WORKDIR /repo
+COPY --from=build /repo /repo
+ARG ENTRY=apps/seller-agents/dist/server.js
+ENV PICOFLOW_ENTRY=$ENTRY
+ENV NODE_ENV=production
+CMD ["sh","-c","node $PICOFLOW_ENTRY"]

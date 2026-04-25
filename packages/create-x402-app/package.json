@@ -1,0 +1,42 @@
+{
+  "name": "create-x402-app",
+    "version": "0.2.0",
+  "description": "Scaffold a working x402 paid-API app in seconds. Generates an Express seller (powered by @picoflow/x402-facilitator) and a buyer-agent demo (powered by @picoflow/agent-wallet). One command, one folder, runnable in 30 seconds.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "create-x402-app": "./dist/cli.js"
+  },
+  "main": "./dist/cli.js",
+  "files": [
+    "dist",
+    "templates",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -w -p tsconfig.json"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+    "publishConfig": {
+      "access": "public"
+    },
+  "keywords": [
+    "x402",
+    "create-app",
+    "scaffold",
+    "starter",
+    "circle",
+    "arc",
+    "usdc",
+    "agentic",
+    "paid-api"
+  ]
+}

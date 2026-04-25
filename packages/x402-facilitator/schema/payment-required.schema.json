@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://picoflow.qubitpage.com/schema/payment-required.schema.json",
+  "title": "x402 PaymentRequired",
+  "description": "Canonical JSON Schema for the body returned by an HTTP 402 response under the x402-eip3009 scheme. Buyer libraries SHOULD reject any 402 body that does not validate against this schema.",
+  "type": "object",
+  "required": [
+    "scheme",
+    "price",
+    "asset",
+    "network",
+    "to",
+    "nonce",
+    "validAfter",
+    "validBefore",
+    "domain"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "scheme": {
+      "type": "string",
+      "enum": ["x402-eip3009"],
+      "description": "Payment scheme identifier."
+    },
+    "price": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?$",
+      "description": "Decimal-string price in the asset's display units (e.g. \"0.001\")."
+    },
+    "asset": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "description": "ERC-20 asset contract address (USDC on Arc)."
+    },
+    "network": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "EVM chainId."
+    },
+    "to": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "description": "Receiver address (seller)."
+    },
+    "splits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["addr", "bps"],
+        "additionalProperties": false,
+        "properties": {
+          "addr": { "type": "string", "pattern": "^0x[a-fA-F0-9]{40}$" },
+          "bps": { "type": "integer", "minimum": 0, "maximum": 10000 }
+        }
+      },
+      "description": "Optional revenue split. Sum of bps MUST equal 10000."
+    },
+    "nonce": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{64}$",
+      "description": "Anti-replay nonce (32 bytes)."
+    },
+    "validAfter": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix seconds — authorization invalid before."
+    },
+    "validBefore": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix seconds — authorization invalid after."
+    },
+    "domain": {
+      "type": "object",
+      "required": ["name", "version", "chainId", "verifyingContract"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "chainId": { "type": "integer", "minimum": 1 },
+        "verifyingContract": { "type": "string", "pattern": "^0x[a-fA-F0-9]{40}$" }
+      },
+      "description": "EIP-712 domain for transferWithAuthorization."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description shown to wallets."
+    },
+    "action_id": {
+      "type": "string",
+      "description": "Server-side correlation id for this challenge."
+    },
+    "quote_id": {
+      "type": "string",
+      "description": "If issued via /price_quote negotiation, the negotiated quote id."
+    }
+  }
+}

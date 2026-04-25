@@ -1,0 +1,216 @@
+/**
+ * @picoflow/tollbooth — Express integration for the PicoFlow stack.
+ *
+ * Thin shim around @picoflow/x402-facilitator + the Postgres ledger. No mock
+ * settlement, no trustless mode, no synthetic txHash strings. If you supply a
+ * `gatewayEnqueue` callback the middleware records `pending` settlements and
+ * the dedicated batch worker (apps/dashboard or apps/sellers worker process)
+ * promotes them to `settled` once the real Gateway batch confirms.
+ */
+import type { NextFunction, Request, Response, RequestHandler } from "express";
+import { randomUUID } from "node:crypto";
+import {
+  ARC_TESTNET,
+  buildChallenge,
+  computeSplits,
+  decodePaymentHeader,
+  encodeSettlementResponseHeader,
+  priceToAtomic,
+  verifyPayment,
+  type PaymentRequired,
+  type SettlementProof,
+  type SignedPayment,
+  type SplitSpec,
+} from "@picoflow/x402-facilitator";
+import type { Address } from "viem";
+
+import type { Ledger } from "@picoflow/nanometer-core";
+
+export interface TollboothConfig {
+  price: string;
+  to: Address;
+  splits?: SplitSpec[];
+  asset?: Address;
+  network?: number;
+  validityWindowSec?: number;
+  ledger?: Ledger;
+  sellerLabel: string;
+  /** Settlement mode for the ledger row. Default "gateway-batch". */
+  settlementMode?: "gateway-batch" | "direct-onchain";
+  description?: string;
+  /**
+   * Async hand-off to the Gateway batch outbox. Should return quickly.
+   * The batch worker promotes the row to status='settled' once Circle Gateway
+   * confirms the batch. Omitting this leaves settlement rows in 'pending'
+   * status until your worker picks them up directly from the DB.
+   */
+  gatewayEnqueue?: (ctx: {
+    payment_id: string;
+    action_id: string;
+    signed: SignedPayment;
+    challenge: PaymentRequired;
+  }) => Promise<void>;
+}
+
+export function tollbooth(cfg: TollboothConfig): RequestHandler {
+  const network = cfg.network ?? ARC_TESTNET.chainId;
+  const asset = cfg.asset ?? ARC_TESTNET.usdc;
+  const settlementMode = cfg.settlementMode ?? "gateway-batch";
+
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const action_id = randomUUID();
+    const start = Date.now();
+
+    const headerVal = req.header("x-payment");
+    if (!headerVal) {
+      const challenge = buildChallenge({
+        price: cfg.price,
+        asset,
+        to: cfg.to,
+        network,
+        splits: cfg.splits,
+        validityWindowSec: cfg.validityWindowSec,
+        description: cfg.description ?? `${cfg.sellerLabel} ${req.path}`,
+        action_id,
+      });
+      res.status(402).header("Content-Type", "application/json").json(challenge);
+      return;
+    }
+
+    let buyerAddr: Address;
+    let signed: SignedPayment;
+    let challenge: PaymentRequired;
+    try {
+      signed = decodePaymentHeader(headerVal) as SignedPayment;
+      challenge = buildChallenge({
+        price: cfg.price,
+        asset,
+        to: cfg.to,
+        network,
+        splits: cfg.splits,
+        action_id,
+      });
+      challenge.nonce = signed.nonce;
+      challenge.validAfter = signed.validAfter;
+      challenge.validBefore = signed.validBefore;
+      buyerAddr = await verifyPayment(challenge, signed, {
+        isNonceFresh: cfg.ledger
+          ? async (nonce: string) => {
+              const r = await cfg.ledger!.pool.query(
+                "SELECT 1 FROM payments WHERE nonce=$1 LIMIT 1",
+                [nonce],
+              );
+              return r.rowCount === 0;
+            }
+          : undefined,
+      });
+    } catch (err) {
+      res.status(402).json({ error: "invalid x402 payment", reason: (err as Error).message });
+      return;
+    }
+
+    const priceAtomic = priceToAtomic(cfg.price);
+    const payment_id = randomUUID();
+    const settlement_id = randomUUID();
+    if (cfg.ledger) {
+      try {
+        await cfg.ledger.insertAction({
+          action_id,
+          route: req.path,
+          method: req.method,
+          buyer_addr: buyerAddr,
+          seller_label: cfg.sellerLabel,
+          seller_addr: cfg.to,
+          price_atomic: priceAtomic,
+          price_human: cfg.price,
+          asset_addr: asset,
+          network_id: network,
+          meta: { headers: { "user-agent": req.header("user-agent") ?? "" } },
+        });
+        await cfg.ledger.insertPayment({
+          payment_id,
+          action_id,
+          nonce: signed.nonce,
+          signature: signed.signature,
+          valid_after: signed.validAfter,
+          valid_before: signed.validBefore,
+        });
+        await cfg.ledger.insertSettlement({
+          settlement_id,
+          payment_id,
+          mode: settlementMode,
+          status: "pending",
+        });
+        if (settlementMode === "gateway-batch") {
+          await cfg.ledger.enqueueGatewayOutbox({
+            settlement_id,
+            payment_id,
+            action_id,
+            asset_addr: asset,
+            network_id: network,
+            from_addr: buyerAddr,
+            to_addr: cfg.to,
+            value_atomic: priceAtomic,
+            valid_after: signed.validAfter,
+            valid_before: signed.validBefore,
+            nonce: signed.nonce,
+            signature: signed.signature,
+          });
+        }
+        if (cfg.splits && cfg.splits.length > 0) {
+          const split = computeSplits(priceAtomic, cfg.splits);
+          await cfg.ledger.insertSplits(
+            action_id,
+            split.map((s: { addr: string; amount: string | bigint }) => ({
+              addr: s.addr,
+              bps: cfg.splits!.find((x) => x.addr.toLowerCase() === s.addr.toLowerCase())!.bps,
+              amount: BigInt(s.amount),
+            })),
+          );
+        }
+      } catch (err) {
+        console.error("[tollbooth] ledger write failed:", (err as Error).message);
+      }
+    }
+
+    if (cfg.gatewayEnqueue) {
+      try {
+        await cfg.gatewayEnqueue({ payment_id, action_id, signed, challenge });
+      } catch (err) {
+        console.error("[tollbooth] gateway enqueue failed:", (err as Error).message);
+      }
+    }
+
+    (req as Request & { picoflow?: unknown }).picoflow = {
+      action_id,
+      buyer_addr: buyerAddr,
+      seller_label: cfg.sellerLabel,
+      price_usdc: cfg.price,
+      price_atomic: priceAtomic.toString(),
+    };
+
+    const proof: SettlementProof = {
+      status: "pending",
+      authorizationId: signed.nonce,
+      timestamp: Date.now(),
+      splits: cfg.splits ? computeSplits(priceAtomic, cfg.splits) : undefined,
+    };
+    res.setHeader("X-PAYMENT-RESPONSE", encodeSettlementResponseHeader(proof));
+
+    if (cfg.ledger) {
+      const originalJson = res.json.bind(res);
+      res.json = ((body: unknown) => {
+        const result_hash =
+          "0x" + Buffer.from(JSON.stringify(body)).toString("hex").slice(0, 16);
+        cfg
+          .ledger!.completeAction(action_id, result_hash, Date.now() - start)
+          .catch((e) => console.error("[tollbooth] complete failed:", e));
+        return originalJson(body);
+      }) as Response["json"];
+    }
+
+    next();
+  };
+}
+
+export type { TollboothConfig as TollboothOptions };

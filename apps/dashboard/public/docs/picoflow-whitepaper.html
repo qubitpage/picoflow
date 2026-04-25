@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="PicoFlow Team" />
+  <meta name="keywords" content="x402, Circle Nanopayments, Arc
+Network, USDC, Agentic Economy, ERC-8004" />
+  <title>PicoFlow — Unified Whitepaper v0.4</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="picoflow-docs.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">PicoFlow — Unified Whitepaper v0.4</h1>
+<p class="subtitle">The Agentic Settlement Mesh on Arc</p>
+<p class="author">PicoFlow Team</p>
+<p class="date">April 2026</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+<p>PicoFlow is an open marketplace where AI agents pay AI agents — by
+the action, by the tick, by the proof — using Circle Nanopayments,
+x402-style payment challenges, API-key customer access, and
+chain-configurable USDC settlement. The public product is live with a
+real-funds mainnet proof on Arbitrum One while the Arc Testnet
+deployment proves the sponsor-native execution path until Arc Mainnet is
+published.</p>
+</div>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cover" id="toc-cover">1. Cover</a></li>
+<li><a href="#abstract" id="toc-abstract">2. Abstract</a></li>
+<li><a href="#the-problem" id="toc-the-problem">3. The Problem</a>
+<ul>
+<li><a href="#the-sub-cent-payment-paradox"
+id="toc-the-sub-cent-payment-paradox">3.1 The sub-cent payment
+paradox</a></li>
+<li><a href="#the-cloud-paradox-a16z-20212025"
+id="toc-the-cloud-paradox-a16z-20212025">3.2 The “Cloud Paradox” (a16z,
+2021–2025)</a></li>
+<li><a href="#the-agentic-economy-gap"
+id="toc-the-agentic-economy-gap">3.3 The agentic-economy gap</a></li>
+</ul></li>
+<li><a href="#market-context" id="toc-market-context">4. Market
+Context</a></li>
+<li><a href="#solution-overview-five-layers"
+id="toc-solution-overview-five-layers">5. Solution Overview — Five
+Layers</a>
+<ul>
+<li><a href="#visual-architecture-figures"
+id="toc-visual-architecture-figures">5.1 Visual architecture
+figures</a></li>
+</ul></li>
+<li><a href="#technical-primitives" id="toc-technical-primitives">6.
+Technical Primitives</a>
+<ul>
+<li><a href="#arc-network" id="toc-arc-network">6.1 Arc Network</a></li>
+<li><a href="#circle-gateway-nanopayments"
+id="toc-circle-gateway-nanopayments">6.2 Circle Gateway /
+Nanopayments</a></li>
+<li><a href="#x402-protocol" id="toc-x402-protocol">6.3 x402
+protocol</a></li>
+<li><a href="#circle-app-kit-bridge-kit-cctp"
+id="toc-circle-app-kit-bridge-kit-cctp">6.4 Circle App Kit / Bridge Kit
+/ CCTP</a></li>
+<li><a href="#erc-8004-reputation" id="toc-erc-8004-reputation">6.5
+ERC-8004 reputation</a></li>
+<li><a href="#stack-used" id="toc-stack-used">6.6 Stack used</a></li>
+</ul></li>
+<li><a href="#architecture-deep-dive" id="toc-architecture-deep-dive">7.
+Architecture Deep Dive</a>
+<ul>
+<li><a href="#buyer-agent-loop-gemini-function-calling"
+id="toc-buyer-agent-loop-gemini-function-calling">7.1 Buyer Agent loop
+(Gemini function calling)</a></li>
+<li><a href="#seller-endpoint-flow-tollbooth"
+id="toc-seller-endpoint-flow-tollbooth">7.2 Seller endpoint flow
+(TollBooth)</a></li>
+<li><a href="#proofmesh-bond-slash-refund"
+id="toc-proofmesh-bond-slash-refund">7.3 ProofMesh bond / slash /
+refund</a></li>
+<li><a href="#rev-split-atomic-settlement"
+id="toc-rev-split-atomic-settlement">7.4 Rev-Split atomic
+settlement</a></li>
+<li><a href="#streammeter-rolling-auth"
+id="toc-streammeter-rolling-auth">7.5 StreamMeter rolling auth</a></li>
+<li><a href="#capability-registry" id="toc-capability-registry">7.6
+Capability Registry</a></li>
+</ul></li>
+<li><a href="#margin-mathematics" id="toc-margin-mathematics">8. Margin
+Mathematics</a>
+<ul>
+<li><a href="#fee-curve-real-not-modelled"
+id="toc-fee-curve-real-not-modelled">8.1 Fee curve (real, not
+modelled)</a></li>
+<li><a href="#roi-for-a-representative-seller"
+id="toc-roi-for-a-representative-seller">8.2 ROI for a representative
+seller</a></li>
+<li><a href="#live-margin-telemetry-today-real"
+id="toc-live-margin-telemetry-today-real">8.3 Live margin telemetry
+(today, real)</a></li>
+</ul></li>
+<li><a href="#trust-model" id="toc-trust-model">9. Trust Model</a></li>
+<li><a href="#sponsor-integration-matrix"
+id="toc-sponsor-integration-matrix">10. Sponsor Integration
+Matrix</a></li>
+<li><a href="#provider-inventory" id="toc-provider-inventory">11.
+Provider Inventory</a></li>
+<li><a href="#smart-contracts" id="toc-smart-contracts">12. Smart
+Contracts</a></li>
+<li><a href="#customer-api-and-payment-flow"
+id="toc-customer-api-and-payment-flow">13. Customer API and Payment
+Flow</a>
+<ul>
+<li><a href="#account-and-key-lifecycle"
+id="toc-account-and-key-lifecycle">13.1 Account and key
+lifecycle</a></li>
+<li><a href="#paid-routes" id="toc-paid-routes">13.2 Paid
+routes</a></li>
+<li><a href="#header-example" id="toc-header-example">13.3 Header
+example</a></li>
+<li><a href="#what-happens-without-a-credit-card"
+id="toc-what-happens-without-a-credit-card">13.4 What happens without a
+credit card</a></li>
+</ul></li>
+<li><a href="#admin-customer-management-and-secret-handling"
+id="toc-admin-customer-management-and-secret-handling">14. Admin,
+Customer Management, and Secret Handling</a></li>
+<li><a href="#real-world-monetization-scenarios"
+id="toc-real-world-monetization-scenarios">15. Real-World Monetization
+Scenarios</a>
+<ul>
+<li><a href="#trading-agent-workflow"
+id="toc-trading-agent-workflow">15.1 Trading agent workflow</a></li>
+<li><a href="#model-provider-workflow"
+id="toc-model-provider-workflow">15.2 Model provider workflow</a></li>
+<li><a href="#enterprise-internal-workflow"
+id="toc-enterprise-internal-workflow">15.3 Enterprise internal
+workflow</a></li>
+</ul></li>
+<li><a href="#demo-protocol-and-test-coverage"
+id="toc-demo-protocol-and-test-coverage">16. Demo Protocol and Test
+Coverage</a></li>
+<li><a href="#current-production-truth"
+id="toc-current-production-truth">17. Current Production Truth</a>
+<ul>
+<li><a href="#direct-mainnet-proof-links"
+id="toc-direct-mainnet-proof-links">17.1 Direct mainnet proof
+links</a></li>
+<li><a href="#direct-arc-testnet-proof-links"
+id="toc-direct-arc-testnet-proof-links">17.2 Direct Arc Testnet proof
+links</a></li>
+</ul></li>
+<li><a href="#compliance-audit-and-finance"
+id="toc-compliance-audit-and-finance">18. Compliance, Audit, and
+Finance</a></li>
+<li><a href="#roadmap" id="toc-roadmap">19. Roadmap</a></li>
+<li><a href="#references" id="toc-references">20. References</a></li>
+<li><a href="#unified-product-appendix"
+id="toc-unified-product-appendix">21. Unified product appendix</a></li>
+<li><a href="#appendix-operations-guide"
+id="toc-appendix-operations-guide">Appendix — Operations guide</a></li>
+<li><a href="#picoflow-admin-and-user-guide"
+id="toc-picoflow-admin-and-user-guide">PicoFlow Admin and User Guide</a>
+<ul>
+<li><a href="#purpose" id="toc-purpose">Purpose</a></li>
+<li><a href="#admin-access" id="toc-admin-access">Admin access</a></li>
+<li><a href="#admin-schematic" id="toc-admin-schematic">Admin
+schematic</a></li>
+<li><a href="#revenue-and-process-model"
+id="toc-revenue-and-process-model">Revenue and process model</a></li>
+<li><a href="#crm-calculations" id="toc-crm-calculations">CRM
+calculations</a></li>
+<li><a href="#wallet-management" id="toc-wallet-management">Wallet
+management</a></li>
+<li><a href="#user-cockpit" id="toc-user-cockpit">User cockpit</a></li>
+<li><a href="#user-schematic" id="toc-user-schematic">User
+schematic</a></li>
+<li><a href="#real-case-scenario" id="toc-real-case-scenario">Real case
+scenario</a></li>
+<li><a href="#classic-api-vs-picoflow"
+id="toc-classic-api-vs-picoflow">Classic API vs PicoFlow</a></li>
+<li><a href="#current-production-truth-1"
+id="toc-current-production-truth-1">Current production truth</a></li>
+<li><a href="#admin-key-and-secret-rules"
+id="toc-admin-key-and-secret-rules">Admin key and secret rules</a></li>
+</ul></li>
+<li><a href="#appendix-delivery-and-test-report"
+id="toc-appendix-delivery-and-test-report">Appendix — Delivery and test
+report</a>
+<ul>
+<li><a href="#production-truth" id="toc-production-truth">Production
+truth</a></li>
+<li><a href="#verified-workflows" id="toc-verified-workflows">Verified
+workflows</a></li>
+<li><a href="#proof-links" id="toc-proof-links">Proof links</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="cover">1. Cover</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr>
+<td><strong>Project</strong></td>
+<td>PicoFlow</td>
+</tr>
+<tr>
+<td><strong>Version</strong></td>
+<td>v0.3 (mainnet proof + Arc readiness, April 2026)</td>
+</tr>
+<tr>
+<td><strong>Hackathon</strong></td>
+<td>lablab.ai — <em>Build the Agentic Economy on Arc using USDC and
+Nanopayments</em></td>
+</tr>
+<tr>
+<td><strong>Repo</strong></td>
+<td><code>D:\QubitDev\scripts\arc-hackathon-picoflow</code> (private
+until submission)</td>
+</tr>
+<tr>
+<td><strong>Public demo</strong></td>
+<td><code>https://picoflow.qubitpage.com</code></td>
+</tr>
+<tr>
+<td><strong>Live funds proof</strong></td>
+<td>Arbitrum One mainnet, chainId <code>42161</code></td>
+</tr>
+<tr>
+<td><strong>Arc proof path</strong></td>
+<td>Arc Testnet, chainId <code>5042002</code>, ready for Arc Mainnet
+redeploy</td>
+</tr>
+<tr>
+<td><strong>License</strong></td>
+<td>Apache-2.0</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="abstract">2. Abstract</h1>
+<p>The agentic web is being built faster than its payment layer. Today,
+an autonomous AI agent that wants to call a single $0.001 API has three
+choices and all three fail:</p>
+<ol type="1">
+<li><strong>Pay with a card</strong> — fixed gateway fees ($0.30 + 2.9
+%) make sub-cent pricing economically impossible.</li>
+<li><strong>Pay onchain directly</strong> — even on a USDC-gas L1 like
+Arc, a single transfer costs ≈ $0.009, larger than the action’s
+value.</li>
+<li><strong>Use a per-action API key</strong> — requires KYC onboarding,
+prepaid credit accounts, manual key rotation, and reconciliation that no
+agent can perform.</li>
+</ol>
+<p>PicoFlow proves the missing fourth path: <strong>metered API calls
+priced in USDC, signed/authorized off the hot path, accounted in a
+public ledger, and settled in batches</strong> make $0.000001-resolution
+payments a real product, not a slide.</p>
+<p>The proof is split honestly:</p>
+<ul>
+<li><strong>Arbitrum One mainnet (<code>42161</code>)</strong> is the
+real-funds working example today: public mainnet addresses, real USDC
+rails, and production-style ledger rows.</li>
+<li><strong>Arc Testnet (<code>5042002</code>)</strong> is the
+Arc-native rehearsal: Vyper contracts, USDC-gas behavior, ProofMesh
+events, and Gateway-compatible settlement state.</li>
+<li><strong>Arc Mainnet</strong> is not claimed live before Circle
+publishes it. PicoFlow is ready to redeploy by chain config, contract
+addresses, and Gateway endpoints.</li>
+</ul>
+<p>We ship five layers, an admin dashboard with full CRUD on every
+entity, an <em>Explain-like-I’m-five</em> system that turns each
+transaction into a parchment card with plain-English step-by-step, and a
+public demo that executes paid actions, records provider costs, exposes
+chain/network selection, and distinguishes settlement intent from
+confirmed explorer proof.</p>
+<hr />
+<h1 id="the-problem">3. The Problem</h1>
+<h2 id="the-sub-cent-payment-paradox">3.1 The sub-cent payment
+paradox</h2>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Per-tx fixed cost</th>
+<th>Min. viable price</th>
+<th>Verdict for $0.005 calls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card (Stripe)</td>
+<td>≈ $0.30 + 2.9 %</td>
+<td>~$10</td>
+<td>❌ negative margin</td>
+</tr>
+<tr>
+<td>Raw onchain</td>
+<td>≈ $0.009 on Arc</td>
+<td>~$0.05</td>
+<td>❌ negative margin</td>
+</tr>
+<tr>
+<td>Gateway-batched x402</td>
+<td>amortised over batch</td>
+<td>$0.000001</td>
+<td>✅ profitable</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-cloud-paradox-a16z-20212025">3.2 The “Cloud Paradox” (a16z,
+2021–2025)</h2>
+<p>Roughly $100B of margin sits with cloud middlemen because billing
+happens at the wrong granularity (per-month, per-seat) instead of
+per-action. PicoFlow makes per-action the default unit — recovering that
+margin for both providers and end users.</p>
+<h2 id="the-agentic-economy-gap">3.3 The agentic-economy gap</h2>
+<p>The current market still lacks an open, meterable, settlement-native
+agent commerce layer. PicoFlow opens the marketplace via TollBooth
+(any-API-in-one-line) and adds onchain trust via ProofMesh bonds, so any
+provider can publish a paid capability without joining a closed pool or
+negotiating a bespoke billing contract.</p>
+<hr />
+<h1 id="market-context">4. Market Context</h1>
+<ul>
+<li><strong>x402 ecosystem</strong>: 75M transactions / $24M settled in
+the 30 days preceding April 2026 (source: x402.org public dashboard,
+retrieved April 2026).</li>
+<li><strong>Agentic GDP</strong>: leading forecasts put agent-initiated
+transactions at &gt; 90 % of internet payment volume by 2030.</li>
+<li><strong>Sub-cent floor</strong>: Circle docs confirm Nanopayments
+accept payments as small as $0.000001 USDC.</li>
+<li><strong>Arc finality</strong>: Malachite consensus targets ≈ 387 ms
+median finality with USDC as native gas (~$0.009 per simple
+transfer).</li>
+<li><strong>Open capability markets</strong> need three primitives at
+once: pay-per-action settlement, programmable trust, and automatic
+revenue splits. PicoFlow’s opening differentiators are listed in
+§7.</li>
+</ul>
+<hr />
+<h1 id="solution-overview-five-layers">5. Solution Overview — Five
+Layers</h1>
+<p>For a non-technical reader: PicoFlow is a <strong>toll meter for
+APIs</strong>. A seller wraps an endpoint, a buyer calls it with a
+normal Authorization header using the Bearer scheme or an x402 payment
+payload, and PicoFlow records the price, provider cost, settlement
+status, and revenue split. The result is not a monthly invoice; it is a
+per-call ledger row with a public proof path.</p>
+<h2 id="visual-architecture-figures">5.1 Visual architecture
+figures</h2>
+<p>The following diagrams are intentionally separated from the network
+table and rendered as full-width figures in the HTML/PDF bundle so the
+labels remain readable.</p>
+<figure>
+<img src="charts/settlement-pipeline.png"
+alt="PicoFlow settlement pipeline" />
+<figcaption aria-hidden="true">PicoFlow settlement pipeline</figcaption>
+</figure>
+<p><strong>Figure 1 — Settlement pipeline.</strong> A request enters
+through the dashboard or API key flow, receives an x402 price challenge,
+records ledger rows, and moves into batched USDC settlement.</p>
+<figure>
+<img src="charts/network-comparison.png"
+alt="PicoFlow network comparison" />
+<figcaption aria-hidden="true">PicoFlow network comparison</figcaption>
+</figure>
+<p><strong>Figure 2 — Network comparison.</strong> Arbitrum One is the
+live real-funds proof today; Arc Testnet is the sponsor-native
+rehearsal; Arc Mainnet becomes the production target once Circle
+publishes it.</p>
+<figure>
+<img src="charts/provider-stack.png" alt="PicoFlow provider stack" />
+<figcaption aria-hidden="true">PicoFlow provider stack</figcaption>
+</figure>
+<p><strong>Figure 3 — Provider stack.</strong> Customers integrate once
+with PicoFlow while PicoFlow meters provider calls, costs, fallback
+state, validation, and revenue splits behind the scenes.</p>
+<pre><code>┌────────────────────────────────────────────────────────────────────────┐
+│                    PicoFlow Dashboard (Next.js 15)                     │
+│   Ledger · Margin Panel · Sponsor Matrix · Replay · Explainer Mode     │
+└─────────────────────────┬──────────────────────────────────────────────┘
+                          │
+   ┌──────────────────────┼─────────────────────────────────────────┐
+   │                      │                                         │
+┌──▼──────────────┐  ┌────▼──────────┐  ┌───────────┐  ┌──────────┐ ┌────────────┐
+│ NanoMeter Core  │  │ TollBooth     │  │ ProofMesh │  │ Rev-Split│ │StreamMeter │
+│ x402 srv + lib  │  │ middleware    │  │ ERC-8004  │  │ atomic   │ │ WS per-tick│
+│ Gemini loop     │  │ (Express+CLI) │  │ + Vyper   │  │ OSS pay  │ │ rolling auth│
+│ Postgres ledger │  │               │  │ bonds     │  │          │ │             │
+└─────────────────┘  └───────────────┘  └─────┬─────┘  └──────────┘ └────────────┘
+                                              │
+                                  ┌───────────▼───────────┐
+                                  │  Arc Testnet (USDC)   │
+                                  │  Circle Gateway       │
+                                  └───────────────────────┘</code></pre>
+<hr />
+<h1 id="technical-primitives">6. Technical Primitives</h1>
+<h2 id="arc-network">6.1 Arc Network</h2>
+<p>PicoFlow separates <strong>live mainnet proof</strong> from
+<strong>Arc readiness</strong>:</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 30%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr>
+<th>Network</th>
+<th style="text-align: right;">chainId</th>
+<th>Status</th>
+<th>Role in PicoFlow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arbitrum One</td>
+<td style="text-align: right;"><code>42161</code></td>
+<td>Live mainnet, real USDC</td>
+<td>Production-style proof that customers can pay today with real
+funds.</td>
+</tr>
+<tr>
+<td>Arc Testnet</td>
+<td style="text-align: right;"><code>5042002</code></td>
+<td>Testnet</td>
+<td>Sponsor-native rehearsal for USDC gas, contracts, ProofMesh, and
+Gateway-compatible settlement semantics.</td>
+</tr>
+<tr>
+<td>Arc Mainnet</td>
+<td style="text-align: right;">pending public release</td>
+<td>Not claimed live yet</td>
+<td>Drop-in production target once Circle publishes chain config and
+endpoints.</td>
+</tr>
+</tbody>
+</table>
+<p>Why mainnet is present at all: Arc is still in testnet, so a
+realistic public demo needs one network where funds are actually live.
+Arbitrum One provides that real-funds evidence today without pretending
+Arc Mainnet exists. Arc Testnet then proves the same product shape —
+USDC gas, Vyper contracts, ProofMesh, and Gateway-compatible settlement
+state — on the sponsor-native network. Once Arc Mainnet is public,
+PicoFlow only needs a chain-config switch, contract deployment, and
+Gateway endpoint update.</p>
+<p>The dashboard consumes <code>/api/chains</code> as the network source
+of truth. Current connected/preset networks include Arc Testnet,
+Arbitrum One, Arbitrum Sepolia, Base, Base Sepolia, OP Mainnet, Polygon,
+and Ethereum. Pages such as <code>/network</code>, <code>/splits</code>,
+<code>/margin</code>, <code>/console</code>, <code>/registry</code>,
+<code>/providers</code>, <code>/track</code>, and
+<code>/proofmesh</code> render all/mainnet/testnet/chain-specific tabs
+from that list so new networks appear automatically rather than as
+hardcoded docs.</p>
+<p>Arc Testnet values used in the rehearsal path:</p>
+<ul>
+<li>RPC <code>https://rpc.testnet.arc.network</code></li>
+<li>Direct Arc Testnet proof links:
+<ul>
+<li>Deployer funding/faucet tx: <a
+href="https://testnet.arcscan.app/tx/0xba0307bba4d9f330d3b6c1b4579686a9e6048cf18bf272ba1e6db037ec373315"><code>0xba0307bba4d9f330d3b6c1b4579686a9e6048cf18bf272ba1e6db037ec373315</code></a></li>
+<li><code>BondVault</code>: <a
+href="https://testnet.arcscan.app/address/0x00792829C3553B95A84bafe33c76E93570D0AbA4"><code>0x00792829C3553B95A84bafe33c76E93570D0AbA4</code></a></li>
+<li><code>ReputationRegistry</code>: <a
+href="https://testnet.arcscan.app/address/0x8Cf86bA01806452B336369D4a25466c34951A086"><code>0x8Cf86bA01806452B336369D4a25466c34951A086</code></a></li>
+<li><code>MetadataLogger</code>: <a
+href="https://testnet.arcscan.app/address/0x2853EDc8BAa06e7A7422CCda307ED3E7f0E96FA8"><code>0x2853EDc8BAa06e7A7422CCda307ED3E7f0E96FA8</code></a></li>
+</ul></li>
+<li>Native gas asset: <strong>USDC</strong>
+(<code>0x3600000000000000000000000000000000000000</code>, 18-decimal gas
+representation)</li>
+<li>Consensus: Malachite, ≈ 387 ms median finality</li>
+<li>CCTP domain: 26</li>
+</ul>
+<h2 id="circle-gateway-nanopayments">6.2 Circle Gateway /
+Nanopayments</h2>
+<ul>
+<li>Gateway Wallet:
+<code>0x0077777d7EBA4688BDeF3E311b846F25870A19B9</code></li>
+<li>Gateway Minter:
+<code>0x0022222ABE238Cc2C7Bb1f21003F0a260052475B</code></li>
+<li>Buyer signs <strong>EIP-3009
+<code>transferWithAuthorization</code></strong> offchain</li>
+<li>Gateway batches and settles <strong>net positions</strong>
+onchain</li>
+<li>Sub-cent floor: $0.000001 USDC per payment</li>
+<li><strong>EOA-only</strong> (Gateway uses <code>ecrecover</code>; no
+EIP-1271 / SCA)</li>
+</ul>
+<h2 id="x402-protocol">6.3 x402 protocol</h2>
+<ol type="1">
+<li>Buyer requests resource → seller responds
+<code>402 PAYMENT-REQUIRED</code> with amount, asset, network,
+recipient, optional <code>splits[]</code></li>
+<li>Buyer signs EIP-3009 authorization, retries with
+<code>PAYMENT-SIGNATURE</code> header</li>
+<li>Seller (or facilitator) verifies, returns <code>200 OK</code> +
+<code>PAYMENT-RESPONSE</code> header carrying authorization id</li>
+</ol>
+<h2 id="circle-app-kit-bridge-kit-cctp">6.4 Circle App Kit / Bridge Kit
+/ CCTP</h2>
+<p>Used to bridge USDC from Sepolia/Base/Solana into Arc with one
+click.</p>
+<h2 id="erc-8004-reputation">6.5 ERC-8004 reputation</h2>
+<p>PicoFlow’s <code>ReputationRegistry.vy</code> implements the standard
+<code>getReputation(agent) → (score, total_claims, slashed_claims)</code>
+interface.</p>
+<h2 id="stack-used">6.6 Stack used</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Stack</th>
+<th>How PicoFlow uses it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dashboard</td>
+<td>Next.js 15, React 19, Tailwind</td>
+<td>Public product site, admin console, docs catalogue, network tabs,
+pagination, and proof links.</td>
+</tr>
+<tr>
+<td>Ledger</td>
+<td>PostgreSQL, <code>pg</code></td>
+<td>Source of truth for actions, payments, settlements, splits, bonds,
+provider costs, gateway outbox, orgs, API keys, and users.</td>
+</tr>
+<tr>
+<td>Paid API runtime</td>
+<td>Node.js/TypeScript, Express-style seller service</td>
+<td>Wraps AI/data endpoints, returns x402 challenges, verifies EIP-3009
+payloads, records actions, and queues settlement.</td>
+</tr>
+<tr>
+<td>Payments</td>
+<td>Circle Nanopayments, x402, EIP-3009, Gateway-batch mode</td>
+<td>Buyer signs one authorization per action; settlement is batched so
+sub-cent economics stay viable.</td>
+</tr>
+<tr>
+<td>Chains</td>
+<td>Arbitrum One, Arc Testnet, configurable EVM presets</td>
+<td>Arbitrum proves real funds today; Arc Testnet proves sponsor-native
+behavior; <code>/api/chains</code> controls connected-network UI.</td>
+</tr>
+<tr>
+<td>Contracts</td>
+<td>Vyper, USDC, ProofMesh
+BondVault/ReputationRegistry/MetadataLogger</td>
+<td>Stakes bonds, logs reputation, and records metadata on Arc Testnet;
+matching mainnet addresses are listed where deployed.</td>
+</tr>
+<tr>
+<td>Agents and providers</td>
+<td>Gemini function calling, Featherless, AI/ML API, AIsa/Kraken
+fallback, in-house validator</td>
+<td>Buyer agents discover capabilities, choose routes, pay per call, and
+cross-check results.</td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td>Pandoc, XeLaTeX, generated HTML/PDF</td>
+<td>One unified whitepaper and one pitch deck only; internal narration
+notes are deliberately excluded from public docs.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="architecture-deep-dive">7. Architecture Deep Dive</h1>
+<h2 id="buyer-agent-loop-gemini-function-calling">7.1 Buyer Agent loop
+(Gemini function calling)</h2>
+<pre><code>loop until budget exhausted or task complete:
+  Gemini → discover_endpoints(capability, max_price, min_reputation)
+  Gemini → quote_price(endpoint_id)              ← receives 402 challenge
+  Gemini → pay_and_call(endpoint_id, params)     ← signs EIP-3009, calls
+  Gemini → cross_validate(result, by=&quot;claude&quot;)   ← optional, paid $0.0015
+  Gemini → stake_bond(claim_id, $0.005)          ← optional, ProofMesh
+  Gemini → explain_margin(action_id)             ← user-facing telemetry</code></pre>
+<h2 id="seller-endpoint-flow-tollbooth">7.2 Seller endpoint flow
+(TollBooth)</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode ts"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>app<span class="op">.</span><span class="fu">use</span>(<span class="st">&quot;/api&quot;</span><span class="op">,</span> <span class="fu">tollbooth</span>({</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  price<span class="op">:</span> { <span class="cf">default</span><span class="op">:</span> <span class="st">&quot;0.001&quot;</span><span class="op">,</span> routes<span class="op">:</span> { <span class="st">&quot;/heavy&quot;</span><span class="op">:</span> <span class="st">&quot;0.01&quot;</span> } }<span class="op">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  splits<span class="op">:</span> [</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    { address<span class="op">:</span> <span class="st">&quot;0xProvider&quot;</span><span class="op">,</span> bps<span class="op">:</span> <span class="dv">8000</span><span class="op">,</span> label<span class="op">:</span> <span class="st">&quot;provider&quot;</span> }<span class="op">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    { address<span class="op">:</span> <span class="st">&quot;0xPlatform&quot;</span><span class="op">,</span> bps<span class="op">:</span> <span class="dv">1000</span><span class="op">,</span> label<span class="op">:</span> <span class="st">&quot;platform&quot;</span> }<span class="op">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    { address<span class="op">:</span> <span class="st">&quot;0xUnsloth&quot;</span><span class="op">,</span>  bps<span class="op">:</span> <span class="dv">1000</span><span class="op">,</span> label<span class="op">:</span> <span class="st">&quot;oss:unsloth&quot;</span> }<span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  registry<span class="op">:</span>    <span class="st">&quot;https://picoflow.qubitpage.com/api/registry&quot;</span><span class="op">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  facilitator<span class="op">:</span> <span class="st">&quot;https://gateway-api-testnet.circle.com&quot;</span><span class="op">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  chain<span class="op">:</span>       <span class="st">&quot;arcTestnet&quot;</span><span class="op">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>}))<span class="op">;</span></span></code></pre></div>
+<h2 id="proofmesh-bond-slash-refund">7.3 ProofMesh bond / slash /
+refund</h2>
+<ul>
+<li><code>stake(claim_id, amount)</code> — pulls USDC from seller</li>
+<li><code>slash(claim_id)</code> — authorized validator receives 50 %,
+insurance pool receives 50 %</li>
+<li><code>refund(claim_id)</code> — only after the configurable
+<code>validation_window</code> (default deploy target: 3600 s) if no
+slash</li>
+</ul>
+<p>Validator economics: pays $0.0015 to check; earns $0.0025 on
+successful slash (net +$0.001); nothing on a valid claim → naturally
+validates only suspicious work.</p>
+<h2 id="rev-split-atomic-settlement">7.4 Rev-Split atomic
+settlement</h2>
+<p>The settlement worker reads <code>splits[]</code> from each
+PAYMENT-REQUIRED, batches per-recipient over N actions, and emits one
+onchain transfer per recipient per batch (typically every 30 s).</p>
+<h2 id="streammeter-rolling-auth">7.5 StreamMeter rolling auth</h2>
+<p>WebSocket handshake includes initial PAYMENT-SIGNATURE for
+<code>N</code> ticks of credit. Server decrements; on
+<code>credit &lt; threshold</code> it sends a
+<code>PAYMENT-REFRESH-REQUIRED</code> control frame; client signs new
+auth inline.</p>
+<h2 id="capability-registry">7.6 Capability Registry</h2>
+<p>Postgres table
+<code>capabilities(id, capability, price_bps, reputation, endpoint, last_seen)</code>
+indexed by <code>(capability, price_bps)</code>. AgentDNS-style resolver
+returns ranked endpoints in &lt; 30 ms.</p>
+<hr />
+<h1 id="margin-mathematics">8. Margin Mathematics</h1>
+<p>For a paid action priced <span class="math inline"><em>p</em></span>
+USDC, margin under each rail:</p>
+<p><span
+class="math display">margin<sub>card</sub>(<em>p</em>) = <em>p</em> − 0.30 − 0.029 ⋅ <em>p</em></span></p>
+<p><span
+class="math display">margin<sub>raw-onchain</sub>(<em>p</em>) = <em>p</em> − <em>g</em>,  <em>g</em> ≈ 0.009
+on Arc</span></p>
+<p><span class="math display">$$
+\text{margin}_{\text{batched}}(p, N) = p - \frac{g}{N}
+$$</span></p>
+<p>where <span class="math inline"><em>N</em></span> is batch size.
+Break-even shifts from <span
+class="math inline"><em>p</em> ≥ 0.31</span> (card) and <span
+class="math inline"><em>p</em> ≥ 0.009</span> (raw) to <span
+class="math inline"><em>p</em> ≥ <em>g</em>/<em>N</em></span> — for
+<span class="math inline"><em>N</em> = 1000</span>, that is <span
+class="math inline"> ≈ $0.000009</span>, four orders of magnitude below
+the raw-onchain floor.</p>
+<h2 id="fee-curve-real-not-modelled">8.1 Fee curve (real, not
+modelled)</h2>
+<p>The chart below is generated by
+<code>docs/whitepaper/charts/generate_fee_curve.py</code> from
+<strong>published Stripe pricing</strong> ($0.30 + 2.9 %, retrieved from
+<code>stripe.com/pricing</code> April 2026) and <strong>observed Arc
+gas</strong> (≈ $0.009 per simple USDC transfer, cross-checked against
+testnet receipts). No model constants are invented — re-running the
+script regenerates the same PNG.</p>
+<figure>
+<img src="charts/fee-curve.png" alt="PicoFlow fee curve" />
+<figcaption aria-hidden="true">PicoFlow fee curve</figcaption>
+</figure>
+<p>Break-even action prices (machine-printed by the same script):</p>
+<table>
+<thead>
+<tr>
+<th>Rail</th>
+<th>Break-even price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card (Stripe)</td>
+<td><strong>$0.3090</strong></td>
+</tr>
+<tr>
+<td>Raw on-chain (Arc)</td>
+<td><strong>$0.009000</strong></td>
+</tr>
+<tr>
+<td>Batched x402, N=10</td>
+<td><strong>$0.00090000</strong></td>
+</tr>
+<tr>
+<td>Batched x402, N=100</td>
+<td><strong>$0.00009000</strong></td>
+</tr>
+<tr>
+<td>Batched x402, N=1,000</td>
+<td><strong>$0.00000900</strong></td>
+</tr>
+<tr>
+<td>Batched x402, N=10,000</td>
+<td><strong>$0.00000090</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The chart and the table are produced by the same Python file, so they
+cannot drift out of sync.</p>
+</blockquote>
+<h2 id="roi-for-a-representative-seller">8.2 ROI for a representative
+seller</h2>
+<p>Consider a provider exposing one inference endpoint at <span
+class="math inline"><em>p</em> = $0.0005</span> per call (a price at
+which <strong>all card and raw-onchain options are
+loss-making</strong>). Assume the provider’s upstream compute cost is
+<span class="math inline"><em>c</em> = $0.00012</span> per call (real
+spot-rate for a 200-token Llama-3.1-8B inference on a shared GPU).</p>
+<p>Per-call economics:</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 22%" />
+<col style="width: 29%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Settlement cost</th>
+<th>Net per call</th>
+<th>Break-even?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card</td>
+<td>$0.30 + $0.0000145 ≈ $0.30</td>
+<td>$-0.29985</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Raw on-chain (Arc)</td>
+<td>$0.009</td>
+<td>$-0.00862</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Batched (N = 100)</td>
+<td>$0.00009</td>
+<td><span
+class="math inline"><strong>+</strong><strong>0.000290</strong></span></td>
+<td>✅ 58 % gross margin</td>
+</tr>
+<tr>
+<td>Batched (N = 1,000)</td>
+<td>$0.000009</td>
+<td><span
+class="math inline"><strong>+</strong><strong>0.000371</strong></span></td>
+<td>✅ 74 % gross margin</td>
+</tr>
+</tbody>
+</table>
+<p>At a sustained call rate of <strong>10 calls/sec</strong> (a small
+public model endpoint), the batched-N=1,000 rail yields an annualised
+gross profit of <span
+class="math inline">0.000371 ⋅ 10 ⋅ 86 400 ⋅ 365 ≈ $117, 000</span> —
+directly recovered from the <em>cloud-paradox margin</em> otherwise
+captured by middlemen. None of the other three rails crosses break-even
+at this price point.</p>
+<h2 id="live-margin-telemetry-today-real">8.3 Live margin telemetry
+(today, real)</h2>
+<p>A snapshot of <code>GET /api/margin/report?window_sec=2592000</code>
+from the public deployment at
+<code>https://picoflow.qubitpage.com</code>, taken while writing this
+whitepaper:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;window_sec&quot;</span><span class="fu">:</span> <span class="dv">2592000</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;revenue_atomic&quot;</span><span class="fu">:</span> <span class="st">&quot;1520000&quot;</span><span class="fu">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;cost_atomic&quot;</span><span class="fu">:</span>    <span class="st">&quot;5889&quot;</span><span class="fu">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;margin_atomic&quot;</span><span class="fu">:</span>  <span class="st">&quot;1514111&quot;</span><span class="fu">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;margin_bps&quot;</span><span class="fu">:</span>     <span class="dv">9961</span><span class="fu">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;by_provider&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;aimlapi&quot;</span><span class="fu">,</span> <span class="dt">&quot;calls&quot;</span><span class="fu">:</span> <span class="dv">32</span><span class="fu">,</span> <span class="dt">&quot;cost_atomic&quot;</span><span class="fu">:</span> <span class="dv">3408</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;validator&quot;</span><span class="fu">,</span> <span class="dt">&quot;calls&quot;</span><span class="fu">:</span> <span class="dv">24</span><span class="fu">,</span> <span class="dt">&quot;cost_atomic&quot;</span><span class="fu">:</span> <span class="dv">1200</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;featherless&quot;</span><span class="fu">,</span> <span class="dt">&quot;calls&quot;</span><span class="fu">:</span> <span class="dv">32</span><span class="fu">,</span> <span class="dt">&quot;cost_atomic&quot;</span><span class="fu">:</span> <span class="dv">1161</span> <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span> <span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="st">&quot;aisa&quot;</span><span class="fu">,</span> <span class="dt">&quot;calls&quot;</span><span class="fu">:</span> <span class="dv">24</span><span class="fu">,</span> <span class="dt">&quot;cost_atomic&quot;</span><span class="fu">:</span> <span class="dv">120</span> <span class="fu">}</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Honest disclosure: these are <strong>ledger measurements</strong>,
+not marketing guesses. Rows tagged as synthesized/cache-hit/error carry
+<code>cost_atomic=0</code>; rows that hit paid providers use documented
+rate cards. The point of the table is not that 99.61% will hold at every
+scale; it is that PicoFlow now records the cost side per provider
+instead of claiming margin from revenue alone.</p>
+<hr />
+<h1 id="trust-model">9. Trust Model</h1>
+<ul>
+<li><strong>Bond size &gt; expected fraud profit.</strong> A seller
+posting <span class="math inline"><em>b</em></span> in bond on a claim
+that delivers <span class="math inline"><em>r</em></span> in fraud will
+be slashed if a validator with detection probability <span
+class="math inline"><em>q</em></span> catches them: expected loss is
+<span class="math inline"><em>q</em> ⋅ <em>b</em></span>. Setting <span
+class="math inline"><em>b</em> &gt; <em>r</em>/<em>q</em></span> deters
+fraud.</li>
+<li><strong>Validator selection</strong> uses BlueQubit / IBM Quantum
+verifiable randomness for the high-value tier (≥ $0.01 actions), making
+which-validator-checks- which-claim unpredictable and uncolludable.</li>
+<li><strong>Insurance pool</strong> absorbs validator misses; funded by
+a 5 % surcharge on every paid action (configurable per buyer).</li>
+</ul>
+<hr />
+<h1 id="sponsor-integration-matrix">10. Sponsor Integration Matrix</h1>
+<p><em>(populated and verified during build; see project README for the
+live table.)</em></p>
+<p>15 sponsors covered: Arc · Circle USDC · Circle Nanopayments · Circle
+Gateway · x402 · Circle App Kit / Bridge Kit · Circle Wallets · Circle
+MCP / Skills · Gemini · Google AI Studio · Featherless · AI/ML API ·
+AIsa · ERC-8004 · Vyper / titanoboa.</p>
+<p>Each sponsor has at least one <em>hero moment</em> visible in the
+dashboard with a direct sponsor artifact link (Arc contract address, Arc
+faucet tx, Gateway tx, Gemini transcript, etc.).</p>
+<hr />
+<h1 id="provider-inventory">11. Provider Inventory</h1>
+<p>Provider roles wired as paid sellers or orchestrator backends:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Role</th>
+<th>What PicoFlow records</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gemini / Google AI Studio</td>
+<td>Planner and tool-loop orchestrator</td>
+<td>route decision, prompt class, latency</td>
+</tr>
+<tr>
+<td>Featherless</td>
+<td>Open-model inference endpoint</td>
+<td>model, prompt/completion estimate, upstream cost</td>
+</tr>
+<tr>
+<td>AI/ML API</td>
+<td>OpenAI-compatible premium breadth</td>
+<td>model, prompt/completion estimate, upstream cost</td>
+</tr>
+<tr>
+<td>AIsa + Kraken fallback</td>
+<td>Data/oracle-style paid calls</td>
+<td>market slot, source, atomic cost</td>
+</tr>
+<tr>
+<td>Validator lane</td>
+<td>ProofMesh cross-checks</td>
+<td>validation result, stake/slash/refund event</td>
+</tr>
+<tr>
+<td>BlueQubit / IBM Quantum</td>
+<td>Verifiable-random validator assignment path</td>
+<td>randomness proof reference when enabled</td>
+</tr>
+</tbody>
+</table>
+<p>The customer does not integrate every provider separately. The
+product value is one PicoFlow API key, one ledger, one settlement state
+machine, one margin report, and one proof trail.</p>
+<hr />
+<h1 id="smart-contracts">12. Smart Contracts</h1>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Contract</th>
+<th>Lang</th>
+<th>Purpose</th>
+<th>Address (Arc Testnet)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BondVault.vy</code></td>
+<td>Vyper 0.4.3</td>
+<td>seller stake / slash / refund</td>
+<td><a
+href="https://testnet.arcscan.app/address/0x00792829C3553B95A84bafe33c76E93570D0AbA4"><code>0x00792829C3553B95A84bafe33c76E93570D0AbA4</code></a></td>
+</tr>
+<tr>
+<td><code>ReputationRegistry.vy</code></td>
+<td>Vyper 0.4.3</td>
+<td>ERC-8004 reputation</td>
+<td><a
+href="https://testnet.arcscan.app/address/0x8Cf86bA01806452B336369D4a25466c34951A086"><code>0x8Cf86bA01806452B336369D4a25466c34951A086</code></a></td>
+</tr>
+<tr>
+<td><code>MetadataLogger.vy</code></td>
+<td>Vyper 0.4.3</td>
+<td>cheap event emitter for proof lane</td>
+<td><a
+href="https://testnet.arcscan.app/address/0x2853EDc8BAa06e7A7422CCda307ED3E7f0E96FA8"><code>0x2853EDc8BAa06e7A7422CCda307ED3E7f0E96FA8</code></a></td>
+</tr>
+</tbody>
+</table>
+<p>Mainnet proof is separate and real-funds: latest Arbitrum One USDC
+transfer proof <a
+href="https://arbiscan.io/tx/0xcacbbfcb3f54f92bb01919810cfd9e5ebecc2b99ddc80bd93afd8681efe94afd"><code>0xcacbbfcb3f54f92bb01919810cfd9e5ebecc2b99ddc80bd93afd8681efe94afd</code></a>,
+with mainnet <code>BondVault</code> <a
+href="https://arbiscan.io/address/0x140A306E5c51C8521827e9be1E5167399dc31c75"><code>0x140A306E5c51C8521827e9be1E5167399dc31c75</code></a>.</p>
+<p>Tests use <a
+href="https://github.com/vyperlang/titanoboa"><code>titanoboa</code></a>
+with property fuzzing.</p>
+<hr />
+<h1 id="customer-api-and-payment-flow">13. Customer API and Payment
+Flow</h1>
+<p>PicoFlow is deliberately usable as a normal HTTP API first. A
+customer signs up, creates an organization, mints a revocable API key,
+and sends that key in the standard <code>Authorization</code>
+header.</p>
+<h2 id="account-and-key-lifecycle">13.1 Account and key lifecycle</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Step</th>
+<th>What the customer does</th>
+<th>What PicoFlow stores</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sign up</td>
+<td>Email, password, optional organization name</td>
+<td><code>users</code> row, <code>orgs</code> row, signed session
+cookie</td>
+</tr>
+<tr>
+<td>Mint key</td>
+<td>Click <strong>Mint a new key</strong> in <code>/account</code></td>
+<td><code>api_keys</code> row with prefix and
+<code>sha256(secret)</code> only</td>
+</tr>
+<tr>
+<td>Copy secret</td>
+<td>Copy <code>pf_&lt;12hexprefix&gt;_&lt;32hexsecret&gt;</code>
+once</td>
+<td>Secret is not recoverable after creation</td>
+</tr>
+<tr>
+<td>Call API</td>
+<td>Send an Authorization header with the Bearer-form API key</td>
+<td>Auth context attaches <code>org_id</code> and <code>key_id</code> to
+the action</td>
+</tr>
+<tr>
+<td>Rotate/revoke</td>
+<td>Revoke old keys or mint a new one</td>
+<td>Revoked keys fail immediately</td>
+</tr>
+</tbody>
+</table>
+<p>The full secret is shown once because storing raw customer keys would
+create an unnecessary custody risk. Admin and account tables show only a
+partial key form such as <code>pf_38e4c49d7a8d_…</code>.</p>
+<h2 id="paid-routes">13.2 Paid routes</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 40%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr>
+<th>Route</th>
+<th style="text-align: right;">Price</th>
+<th>Real role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/api/aisa/data</code></td>
+<td style="text-align: right;"><code>$0.001</code></td>
+<td>Market data slot; uses AIsa when a key exists, live Kraken public
+data today, deterministic fallback only if Kraken is unreachable.</td>
+</tr>
+<tr>
+<td><code>/api/featherless/infer</code></td>
+<td style="text-align: right;"><code>$0.005</code></td>
+<td>Open-model inference through Featherless with provider cost
+tracking.</td>
+</tr>
+<tr>
+<td><code>/api/aimlapi/infer</code></td>
+<td style="text-align: right;"><code>$0.005</code></td>
+<td>OpenAI-compatible model marketplace through AI/ML API with provider
+cost tracking.</td>
+</tr>
+<tr>
+<td><code>/api/validator/check</code></td>
+<td style="text-align: right;"><code>$0.0015</code></td>
+<td>Second-opinion validator lane for ProofMesh claims.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="header-example">13.3 Header example</h2>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">AUTH</span><span class="op">=</span><span class="st">&quot;Bearer </span><span class="va">$PICOFLOW_API_KEY</span><span class="st">&quot;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> https://picoflow.qubitpage.com/api/featherless/infer <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Authorization: </span><span class="va">$AUTH</span><span class="st">&quot;</span> <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;content-type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;model&quot;:&quot;mistralai/Mistral-Nemo-Instruct-2407&quot;,&quot;prompt&quot;:&quot;Hello&quot;}&#39;</span></span></code></pre></div>
+<p>For a zero-spend authentication proof, call:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">AUTH</span><span class="op">=</span><span class="st">&quot;Bearer </span><span class="va">$PICOFLOW_API_KEY</span><span class="st">&quot;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> https://picoflow.qubitpage.com/api/whoami <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Authorization: </span><span class="va">$AUTH</span><span class="st">&quot;</span></span></code></pre></div>
+<h2 id="what-happens-without-a-credit-card">13.4 What happens without a
+credit card</h2>
+<p>No card processor is required. The API key authenticates the customer
+and org; the x402 payment flow prices the route before work starts; the
+buyer signs an EIP-3009 authorization; PicoFlow records the payment,
+provider cost, split, and settlement intent; the Gateway/batch worker
+settles net positions in USDC.</p>
+<p>Sequence:</p>
+<ol type="1">
+<li>Buyer calls a paid route with an Authorization header using the
+Bearer scheme.</li>
+<li>TollBooth checks key, org status, quota, price, and route
+policy.</li>
+<li>Seller returns <code>402 PAYMENT-REQUIRED</code> with amount, asset,
+network, recipient, and optional split recipients.</li>
+<li>Buyer signs the authorization and retries with the payment
+header.</li>
+<li>Seller verifies the signature and nonce, runs the provider, and
+writes <code>actions</code>, <code>payments</code>,
+<code>settlements</code>, <code>splits</code>, and
+<code>provider_costs</code> rows.</li>
+<li>The response includes proof headers such as action id and
+price.</li>
+<li>Settlement is batched so many tiny calls can become one economic
+USDC move.</li>
+</ol>
+<p>This is why a one-cent-or-less workflow can be profitable: the
+customer pays for exactly the action consumed, while fixed card fees
+never enter the path.</p>
+<hr />
+<h1 id="admin-customer-management-and-secret-handling">14. Admin,
+Customer Management, and Secret Handling</h1>
+<p>The admin UI is not a decorative dashboard. It is the operating
+surface for the business model.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Purpose</th>
+<th>Controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/admin</code></td>
+<td>Operator overview</td>
+<td>Revenue, providers, customers, settlement state, public proof links,
+rollout blockers</td>
+</tr>
+<tr>
+<td><code>/orgs</code></td>
+<td>Customer environments</td>
+<td>Create/disable orgs, mint keys, edit key label/scope, revoke
+keys</td>
+</tr>
+<tr>
+<td><code>/settings</code></td>
+<td>Configuration vault</td>
+<td>API keys, treasury addresses, chain config, secret reveal/edit with
+admin token</td>
+</tr>
+<tr>
+<td><code>/account</code></td>
+<td>Customer cockpit</td>
+<td>Mint/revoke own keys, copy one-time secret, see service
+examples</td>
+</tr>
+<tr>
+<td><code>/console</code></td>
+<td>Transaction truth</td>
+<td>Recent actions, settlement status, monetization, production
+critique</td>
+</tr>
+</tbody>
+</table>
+<p>Key and secret policy:</p>
+<ul>
+<li>API key secrets are displayed once at mint time and then stored only
+as <code>sha256(secret)</code>.</li>
+<li>Admin key lists show prefix-only partial values; the raw key cannot
+be recovered, only replaced or revoked.</li>
+<li>Admins can edit key labels and tenant/admin scope without changing
+the secret.</li>
+<li>Rotation is implemented by minting a new key, switching the client,
+then revoking the old key.</li>
+<li>Settings secrets are masked in normal lists. A privileged operator
+can reveal and edit a setting only after providing the backend admin
+token.</li>
+</ul>
+<p>This model covers the practical management path: customers can
+self-serve API access, operators can revoke or promote access, and no
+page leaks a full secret after the one-time copy event.</p>
+<hr />
+<h1 id="real-world-monetization-scenarios">15. Real-World Monetization
+Scenarios</h1>
+<h2 id="trading-agent-workflow">15.1 Trading agent workflow</h2>
+<ol type="1">
+<li>Pay <code>$0.001</code> for <code>/api/aisa/data</code> to check
+BTC/ETH market state.</li>
+<li>If volatility or volume passes a threshold, pay <code>$0.005</code>
+for an inference route to summarize the strategy.</li>
+<li>Pay <code>$0.0015</code> for <code>/api/validator/check</code> to
+cross-check the claim.</li>
+<li>Store the action id, payment id, provider source, and settlement
+status for audit.</li>
+</ol>
+<p>The full decision path remains below one cent, yet each step is
+priced, metered, and attributable.</p>
+<h2 id="model-provider-workflow">15.2 Model provider workflow</h2>
+<p>A small model host wraps its inference endpoint with TollBooth, sets
+a price per call, and shares revenue between the provider, platform, and
+open-source model dependency. PicoFlow handles metering, split rows, and
+batch settlement.</p>
+<h2 id="enterprise-internal-workflow">15.3 Enterprise internal
+workflow</h2>
+<p>An enterprise can issue one key per agent, department, or workload,
+enforce monthly caps, and audit every paid call by <code>org_id</code>,
+<code>key_id</code>, route, provider, and latency. The payment rail is
+USDC-native; the management layer still feels like a normal API
+portal.</p>
+<hr />
+<h1 id="demo-protocol-and-test-coverage">16. Demo Protocol and Test
+Coverage</h1>
+<p>The public demo runner is available from <code>/demo</code> and can
+select Arc Testnet or Arbitrum One from <code>/api/chains</code>. It
+executes the buyer-agent workflow, streams a terminal transcript, and
+links back into ledger/proof pages.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Test area</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Account workflow</td>
+<td>Signup/login issue a session, <code>/account</code> loads org data,
+keys mint/revoke under the user org.</td>
+</tr>
+<tr>
+<td>API key auth</td>
+<td>Bearer-form API keys are enforced when
+<code>REQUIRE_API_KEY=true</code>; <code>/api/whoami</code> confirms the
+attached org/key.</td>
+</tr>
+<tr>
+<td>Paid calls</td>
+<td>Demo executes AIsa/Kraken, Featherless, AI/ML API, and validator
+routes with x402 authorization records.</td>
+</tr>
+<tr>
+<td>Admin workflow</td>
+<td><code>/orgs</code> can create/disable orgs, mint keys, edit key
+label/scope, and revoke keys.</td>
+</tr>
+<tr>
+<td>Settings workflow</td>
+<td><code>/settings</code> lists masked values and requires admin token
+for reveal/save/delete.</td>
+</tr>
+<tr>
+<td>Network pages</td>
+<td><code>/network</code>, <code>/splits</code>, <code>/margin</code>,
+<code>/console</code>, <code>/providers</code>, <code>/registry</code>,
+<code>/track</code>, and <code>/proofmesh</code> render chain tabs from
+<code>/api/chains</code>.</td>
+</tr>
+<tr>
+<td>Proof links</td>
+<td>Mainnet links point to Arbiscan transactions/contracts; Arc links
+point to Arcscan testnet transactions/contracts.</td>
+</tr>
+</tbody>
+</table>
+<p>Latest production demo status: the one-click buyer run completes the
+56-action plan with zero failed actions and records the selected network
+in the terminal transcript. The exact counters are shown live in the
+dashboard, not hardcoded in this document.</p>
+<hr />
+<h1 id="current-production-truth">17. Current Production Truth</h1>
+<p>This section is intentionally strict so the product does not
+overclaim.</p>
+<ul>
+<li><strong>Arc Testnet contracts are live and verified.</strong>
+BondVault, ReputationRegistry, and MetadataLogger are deployed on Arc
+Testnet and linked below.</li>
+<li><strong>Arc Mainnet is not published by Circle yet.</strong>
+PicoFlow is Arc-mainnet ready by configuration, contracts, and Gateway
+semantics, but it does not claim live Arc Mainnet settlement.</li>
+<li><strong>Arbitrum One is the real-funds mainnet proof today.</strong>
+It demonstrates live USDC rails and production-style proof links while
+Arc Mainnet is unavailable.</li>
+<li><strong>Base Mainnet fallback is prepared but unfunded.</strong>
+Preflight reports <code>funded = false</code> until ETH gas is sent to
+the Base deployer.</li>
+<li><strong>Featherless and AI/ML API are real upstreams.</strong>
+Provider probes and cost rows identify real calls versus cache/fallback
+behavior.</li>
+<li><strong>AIsa key is missing.</strong> The data route uses live
+Kraken public market data before falling back to deterministic emergency
+data.</li>
+</ul>
+<h2 id="direct-mainnet-proof-links">17.1 Direct mainnet proof links</h2>
+<ul>
+<li>Arbitrum One USDC transaction: <a
+href="https://arbiscan.io/tx/0xcacbbfcb3f54f92bb01919810cfd9e5ebecc2b99ddc80bd93afd8681efe94afd"><code>0xcacbbfcb3f54f92bb01919810cfd9e5ebecc2b99ddc80bd93afd8681efe94afd</code></a></li>
+<li>Arbitrum One BondVault: <a
+href="https://arbiscan.io/address/0x140A306E5c51C8521827e9be1E5167399dc31c75"><code>0x140A306E5c51C8521827e9be1E5167399dc31c75</code></a></li>
+<li>Arbitrum One ReputationRegistry: <a
+href="https://arbiscan.io/address/0x6BCFa75Cf8E1B01828F69625cD0ba6E50237B390"><code>0x6BCFa75Cf8E1B01828F69625cD0ba6E50237B390</code></a></li>
+<li>Arbitrum One MetadataLogger: <a
+href="https://arbiscan.io/address/0xc10e0B31A9dE86c15298047742594163fb0D20Cd"><code>0xc10e0B31A9dE86c15298047742594163fb0D20Cd</code></a></li>
+</ul>
+<h2 id="direct-arc-testnet-proof-links">17.2 Direct Arc Testnet proof
+links</h2>
+<ul>
+<li>Arc Testnet funding/faucet transaction: <a
+href="https://testnet.arcscan.app/tx/0xba0307bba4d9f330d3b6c1b4579686a9e6048cf18bf272ba1e6db037ec373315"><code>0xba0307bba4d9f330d3b6c1b4579686a9e6048cf18bf272ba1e6db037ec373315</code></a></li>
+<li>Arc Testnet BondVault: <a
+href="https://testnet.arcscan.app/address/0x00792829C3553B95A84bafe33c76E93570D0AbA4"><code>0x00792829C3553B95A84bafe33c76E93570D0AbA4</code></a></li>
+<li>Arc Testnet ReputationRegistry: <a
+href="https://testnet.arcscan.app/address/0x8Cf86bA01806452B336369D4a25466c34951A086"><code>0x8Cf86bA01806452B336369D4a25466c34951A086</code></a></li>
+<li>Arc Testnet MetadataLogger: <a
+href="https://testnet.arcscan.app/address/0x2853EDc8BAa06e7A7422CCda307ED3E7f0E96FA8"><code>0x2853EDc8BAa06e7A7422CCda307ED3E7f0E96FA8</code></a></li>
+</ul>
+<hr />
+<h1 id="compliance-audit-and-finance">18. Compliance, Audit, and
+Finance</h1>
+<p>PicoFlow records enough data for support, finance, and future
+regulated-mode adapters without requiring every customer to understand
+blockchain internals.</p>
+<p>CSV export schema:</p>
+<pre class="text"><code>timestamp_iso, action_id, endpoint, buyer, seller, capability,
+price_usdc, splits_json, payment_signature, payment_response,
+gateway_settlement_id, onchain_tx_hash, status, latency_ms, result_sha256</code></pre>
+<p>Recommended operational controls:</p>
+<ul>
+<li>One key per app or agent.</li>
+<li>Rotate keys on personnel or deployment changes.</li>
+<li>Use monthly call caps per org.</li>
+<li>Reconcile provider-cost rows against route revenue.</li>
+<li>Treat testnet tx hashes as rehearsal evidence, not financial
+settlement.</li>
+<li>Treat Arbitrum/Base/Ethereum mainnet tx hashes as financial proof
+only when funded and confirmed.</li>
+</ul>
+<hr />
+<h1 id="roadmap">19. Roadmap</h1>
+<p>Near-term production hardening:</p>
+<ol type="1">
+<li>Fund the Base deployer or wait for public Arc Mainnet, then run
+mainnet contract deployment with the existing chain config.</li>
+<li>Replace the AIsa/Kraken fallback with an issued AIsa upstream key
+once available.</li>
+<li>Add hosted customer webhooks for settlement and quota events.</li>
+<li>Add richer per-key budgets and alert thresholds.</li>
+<li>Add regulated-mode onboarding adapters for teams that need
+KYC/KYB.</li>
+</ol>
+<p>Long term: PicoFlow becomes the operating system for agentic commerce
+— a shared meter, trust layer, and settlement rail for APIs that are too
+small, fast, or autonomous for card-era billing.</p>
+<hr />
+<h1 id="references">20. References</h1>
+<ul>
+<li>Circle Nanopayments and x402 documentation</li>
+<li>Arc Network documentation and Arcscan testnet explorer</li>
+<li>Circle Gateway and EIP-3009
+<code>transferWithAuthorization</code></li>
+<li>ERC-8004 reputation interface</li>
+<li>Vyper and titanoboa contract tooling</li>
+<li>Arbiscan mainnet explorer</li>
+<li>x402.org public ecosystem dashboard</li>
+<li>a16z Cloud Paradox essays</li>
+</ul>
+<hr />
+<h1 id="unified-product-appendix">21. Unified product appendix</h1>
+<p>The public docs surface intentionally exposes only two deliverables:
+this unified whitepaper and the pitch deck. Internal narration notes,
+duplicate slide outlines, timestamp-heavy build logs, and raw critique
+transcripts stay out of the public documentation. The appendices below
+keep only the operating details judges and implementers need.</p>
+<hr />
+<h1 id="appendix-operations-guide">Appendix — Operations guide</h1>
+<h1 id="picoflow-admin-and-user-guide">PicoFlow Admin and User
+Guide</h1>
+<h2 id="purpose">Purpose</h2>
+<p>PicoFlow has two human surfaces:</p>
+<ul>
+<li><strong>Admin cockpit</strong>: backend management, API keys,
+settings, customers, wallets, revenue, provider health, and rollout
+readiness.</li>
+<li><strong>User cockpit</strong>: customer login, API keys, service
+selection, funding guidance, quota visibility, and examples for real
+agent workflows.</li>
+</ul>
+<p>The goal is not to hide blockchain details. The goal is to translate
+them into operational language: who paid, what route ran, which provider
+served it, what it cost, where the revenue went, and what proof
+exists.</p>
+<h2 id="admin-access">Admin access</h2>
+<p>Admin pages are protected by dashboard Basic Auth:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Area</th>
+<th>URL</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin cockpit</td>
+<td><code>/admin</code></td>
+<td>One-page CRM and backend command center</td>
+</tr>
+<tr>
+<td>Settings vault</td>
+<td><code>/settings</code></td>
+<td>API keys, treasury wallets, provider settings, chain config</td>
+</tr>
+<tr>
+<td>Customer environments</td>
+<td><code>/orgs</code></td>
+<td>Tenants, API keys, monthly caps, enable/disable</td>
+</tr>
+<tr>
+<td>Operator console</td>
+<td><code>/console</code></td>
+<td>Transaction truth, route economics, critique items</td>
+</tr>
+<tr>
+<td>Provider status</td>
+<td><code>/providers</code></td>
+<td>Live upstream probes and fallback state</td>
+</tr>
+</tbody>
+</table>
+<p>Credentials come from environment variables:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>DASHBOARD_ADMIN_USER<span class="op">=&lt;</span>admin username<span class="op">&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>DASHBOARD_ADMIN_PASSWORD<span class="op">=&lt;</span>admin password<span class="op">&gt;</span></span></code></pre></div>
+<p>The admin cockpit does not reveal private keys. It shows public
+wallet addresses, readiness state, and exact runbook commands. Private
+deployer keys stay in gitignored files such as
+<code>contracts/.base-mainnet.deployer.secret.json</code>.</p>
+<h2 id="admin-schematic">Admin schematic</h2>
+<pre class="mermaid"><code>flowchart LR
+  A[Admin login] --&gt; B[/admin cockpit]
+  B --&gt; C[Settings vault]
+  B --&gt; D[Customer CRM]
+  B --&gt; E[Provider health]
+  B --&gt; F[Wallet and deploy runbook]
+  C --&gt; G[API keys and treasury addresses]
+  D --&gt; H[Org quotas and revocable keys]
+  E --&gt; I[Featherless, AI/ML API, AIsa/Kraken, Validator]
+  F --&gt; J[Arc Testnet live, Base Mainnet fallback]</code></pre>
+<h2 id="revenue-and-process-model">Revenue and process model</h2>
+<p>Every paid route follows the same operating model:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Step</th>
+<th>Human meaning</th>
+<th>System evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Buyer signs</td>
+<td>The caller accepts the price before work starts</td>
+<td>HTTP 402 challenge and signed retry</td>
+</tr>
+<tr>
+<td>TollBooth meters</td>
+<td>Auth, quota, price, split, and org/key metadata are attached</td>
+<td><code>actions.meta.org_id</code>,
+<code>actions.meta.key_id</code></td>
+</tr>
+<tr>
+<td>Provider serves</td>
+<td>Real upstream or documented fallback returns the result</td>
+<td><code>meta.source</code> such as <code>featherless-real</code> or
+<code>kraken-public</code></td>
+</tr>
+<tr>
+<td>Ledger proves</td>
+<td>The result is recorded for customer and operator review</td>
+<td>actions, payments, settlements, split rows</td>
+</tr>
+<tr>
+<td>Admin reconciles</td>
+<td>Finance and support inspect what happened</td>
+<td><code>/admin</code>, <code>/console</code>, <code>/splits</code>,
+<code>/margin</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="crm-calculations">CRM calculations</h2>
+<p>The admin cockpit translates database rows into business
+concepts:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Metric</th>
+<th>How to read it</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total billed</td>
+<td>Completed action revenue in USDC micro-units</td>
+<td>Compare against upstream cost and reserve</td>
+</tr>
+<tr>
+<td>Active keys</td>
+<td>Live customer integrations</td>
+<td>Rotate or revoke stale keys</td>
+</tr>
+<tr>
+<td>Calls 30d</td>
+<td>Recent customer usage</td>
+<td>Upsell, support, or cap noisy tenants</td>
+</tr>
+<tr>
+<td>Missing settings</td>
+<td>Empty provider/chain rows</td>
+<td>Fill in <code>/settings</code> before production</td>
+</tr>
+<tr>
+<td>Provider health</td>
+<td>Real source vs fallback</td>
+<td>Replace missing keys or accept public fallback</td>
+</tr>
+<tr>
+<td>Onchain proofs</td>
+<td>Settlement rows with tx hashes</td>
+<td>Separate testnet proof from mainnet production</td>
+</tr>
+</tbody>
+</table>
+<h2 id="wallet-management">Wallet management</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Wallet</th>
+<th>Current role</th>
+<th>Next action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arc Testnet deployer
+<code>0x5257613C0a0b87405d08B21c62Be3F65CbD0a5bF</code></td>
+<td>Owns live Arc Testnet contracts</td>
+<td>Keep for hackathon proof only</td>
+</tr>
+<tr>
+<td>Base Mainnet deployer
+<code>0x3854510d4C159d5d97646d4CBfEEc06BEF983E66</code></td>
+<td>Real-money fallback deployer</td>
+<td>Fund with Base ETH, run check-only, deploy</td>
+</tr>
+<tr>
+<td>Seller/platform/OSS payout addresses</td>
+<td>Revenue split recipients</td>
+<td>Manage via <code>/settings</code></td>
+</tr>
+</tbody>
+</table>
+<p>Base deployment runbook:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> D<span class="op">:</span>\QubitDev\scripts\arc-hackathon-picoflow</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="va">$env</span><span class="op">:</span><span class="va">PYTHONIOENCODING</span><span class="op">=</span><span class="st">&quot;utf-8&quot;</span><span class="op">;</span> <span class="va">$env</span><span class="op">:</span><span class="va">PYTHONUTF8</span><span class="op">=</span><span class="st">&quot;1&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">&amp;</span> <span class="st">&quot;D:\QubitDev\.venv\Scripts\python.exe&quot;</span> contracts\deploy<span class="op">.</span><span class="fu">py</span> base-mainnet <span class="op">--</span>secret-file contracts\<span class="op">.</span><span class="fu">base</span><span class="op">-</span>mainnet<span class="op">.</span><span class="fu">deployer</span><span class="op">.</span><span class="fu">secret</span><span class="op">.</span><span class="fu">json</span> <span class="op">--</span>check-only</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># After funding the deployer with at least 0.005 ETH on Base:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">&amp;</span> <span class="st">&quot;D:\QubitDev\.venv\Scripts\python.exe&quot;</span> contracts\deploy<span class="op">.</span><span class="fu">py</span> base-mainnet <span class="op">--</span>secret-file contracts\<span class="op">.</span><span class="fu">base</span><span class="op">-</span>mainnet<span class="op">.</span><span class="fu">deployer</span><span class="op">.</span><span class="fu">secret</span><span class="op">.</span><span class="fu">json</span></span></code></pre></div>
+<h2 id="user-cockpit">User cockpit</h2>
+<p>Customer users sign in at <code>/login</code> and manage their
+integration at <code>/account</code>.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>User action</th>
+<th>What it means</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mint API key</td>
+<td>Create one revocable secret per app or agent</td>
+<td>Safer than sharing one master key</td>
+</tr>
+<tr>
+<td>Choose service</td>
+<td>Pick market data, model call, or validator</td>
+<td>Pay only for the step needed</td>
+</tr>
+<tr>
+<td>Fund wallet</td>
+<td>Use USDC on Arc Testnet now; Base mainnet for real-money
+fallback</td>
+<td>Keeps settlement explicit</td>
+</tr>
+<tr>
+<td>Track ledger</td>
+<td>Inspect calls, source, latency, status</td>
+<td>Makes finance and debugging easier</td>
+</tr>
+</tbody>
+</table>
+<p>API keys use the format
+<code>pf_&lt;12hexprefix&gt;_&lt;32hexsecret&gt;</code>. The customer
+sends the full value in the Authorization header using the Bearer
+scheme. PicoFlow stores only the prefix and <code>sha256(secret)</code>,
+so the secret is shown once and cannot be recovered later. Admin lists
+show only <code>pf_&lt;prefix&gt;_…</code>; operators can edit a key’s
+label and tenant/admin scope, revoke it, or mint a replacement.</p>
+<h2 id="user-schematic">User schematic</h2>
+<pre class="mermaid"><code>sequenceDiagram
+  participant User
+  participant Agent
+  participant PicoFlow
+  participant Provider
+  participant Ledger
+  User-&gt;&gt;PicoFlow: Sign up / log in
+  User-&gt;&gt;PicoFlow: Mint API key
+  Agent-&gt;&gt;PicoFlow: Request paid route
+  PicoFlow--&gt;&gt;Agent: HTTP 402 price challenge
+  Agent-&gt;&gt;PicoFlow: Signed paid retry
+  PicoFlow-&gt;&gt;Provider: Run selected service
+  Provider--&gt;&gt;PicoFlow: Result
+  PicoFlow-&gt;&gt;Ledger: Record action/payment/source/split
+  PicoFlow--&gt;&gt;Agent: Response + proof headers</code></pre>
+<h2 id="real-case-scenario">Real case scenario</h2>
+<p>A trading agent can run a three-step workflow:</p>
+<ol type="1">
+<li>Pay <code>$0.001</code> for a market signal from
+<code>/api/aisa/data</code>.</li>
+<li>Only if the signal is worth it, pay <code>$0.005</code> for
+<code>/api/aimlapi/infer</code> or
+<code>/api/featherless/infer</code>.</li>
+<li>Pay <code>$0.0015</code> for <code>/api/validator/check</code>
+before acting.</li>
+</ol>
+<p>Total cost stays below one cent for the decision path, while every
+step has a price, provider source, and ledger record.</p>
+<h2 id="classic-api-vs-picoflow">Classic API vs PicoFlow</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Classic API</th>
+<th>PicoFlow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pricing</td>
+<td>Subscription or prepaid credits</td>
+<td>Price per call</td>
+</tr>
+<tr>
+<td>Proof</td>
+<td>Invoice later</td>
+<td>Ledger row immediately</td>
+</tr>
+<tr>
+<td>Access</td>
+<td>Static account keys</td>
+<td>Revocable org keys and quotas</td>
+</tr>
+<tr>
+<td>Provider cost</td>
+<td>Hidden blended cost</td>
+<td>Exposed route/provider economics</td>
+</tr>
+<tr>
+<td>Agent commerce</td>
+<td>Manual backend billing</td>
+<td>x402 paid call flow</td>
+</tr>
+<tr>
+<td>Finance</td>
+<td>Reconcile later</td>
+<td>Review by action, split, provider, settlement</td>
+</tr>
+</tbody>
+</table>
+<h2 id="current-production-truth-1">Current production truth</h2>
+<ul>
+<li>Arc Testnet contracts are live and verified.</li>
+<li>Arc Mainnet is not published by Circle yet.</li>
+<li>Arbitrum One mainnet is live as the real-funds proof path, with a
+real USDC transaction and public contract links.</li>
+<li>Base Mainnet fallback is ready but unfunded; preflight reports
+<code>funded = False</code> until ETH gas is sent.</li>
+<li>Featherless and AI/ML API are real upstreams.</li>
+<li>AIsa key is missing, so PicoFlow now uses live Kraken public market
+data before the deterministic emergency fallback.</li>
+</ul>
+<h2 id="admin-key-and-secret-rules">Admin key and secret rules</h2>
+<ul>
+<li>API key secrets are shown once at creation and then masked
+forever.</li>
+<li>The <code>/orgs</code> page lets admins create orgs, mint
+tenant/admin keys, edit key labels/scopes, disable orgs, and revoke
+keys.</li>
+<li>The <code>/settings</code> page masks provider and chain secrets by
+default. Reveal/edit/delete requires the backend admin token.</li>
+<li>Rotation means mint a new key, switch the client header, confirm
+<code>/api/whoami</code>, then revoke the old key.</li>
+</ul>
+<hr />
+<h1 id="appendix-delivery-and-test-report">Appendix — Delivery and test
+report</h1>
+<h2 id="production-truth">Production truth</h2>
+<ul>
+<li>Arc Testnet contracts are live and verified: BondVault,
+ReputationRegistry, and MetadataLogger are linked in the proof section
+above.</li>
+<li>Arbitrum One is the live mainnet proof path today, with a real USDC
+transaction and mainnet contract links.</li>
+<li>Arc Mainnet is not public yet, so PicoFlow does not claim Arc
+Mainnet production settlement.</li>
+<li>Base Mainnet fallback is prepared but unfunded; preflight reports
+funded = false until ETH gas is sent to the deployer.</li>
+<li>Featherless and AI/ML API are real upstreams. AIsa has no issued key
+yet, so the data route uses live Kraken public market data before the
+deterministic emergency fallback.</li>
+</ul>
+<h2 id="verified-workflows">Verified workflows</h2>
+<ul>
+<li>Signup and login create a tenant org, issue a signed session, and
+open the customer account page.</li>
+<li>Customer API keys can be minted from the web UI, are shown once, and
+are stored as sha256(secret) only.</li>
+<li>Paid endpoints accept Bearer-form PicoFlow API keys; /api/whoami
+proves the key round trip without spending money.</li>
+<li>Admins can create/disable orgs, mint tenant or admin keys, edit key
+labels/scopes, revoke keys, and inspect active prefixes without
+revealing raw secrets.</li>
+<li>Settings secrets are masked in listings; privileged reveal/edit
+requires the backend admin token.</li>
+<li>The demo runner executes the 56-action workflow with network
+selection and records terminal output for judges.</li>
+</ul>
+<h2 id="proof-links">Proof links</h2>
+<ul>
+<li>Arbitrum One real USDC tx:
+https://arbiscan.io/tx/0xcacbbfcb3f54f92bb01919810cfd9e5ebecc2b99ddc80bd93afd8681efe94afd</li>
+<li>Arbitrum One BondVault:
+https://arbiscan.io/address/0x140A306E5c51C8521827e9be1E5167399dc31c75</li>
+<li>Arc Testnet faucet tx:
+https://testnet.arcscan.app/tx/0xba0307bba4d9f330d3b6c1b4579686a9e6048cf18bf272ba1e6db037ec373315</li>
+<li>Arc Testnet BondVault:
+https://testnet.arcscan.app/address/0x00792829C3553B95A84bafe33c76E93570D0AbA4</li>
+<li>Arc Testnet ReputationRegistry:
+https://testnet.arcscan.app/address/0x8Cf86bA01806452B336369D4a25466c34951A086</li>
+<li>Arc Testnet MetadataLogger:
+https://testnet.arcscan.app/address/0x2853EDc8BAa06e7A7422CCda307ED3E7f0E96FA8</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "@picoflow/tollbooth",
+    "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -w -p tsconfig.json",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@picoflow/nanometer-core": "workspace:*",
+    "@picoflow/x402-facilitator": "workspace:*",
+    "express": "^4.21.0",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.9.0",
+    "typescript": "^5.6.3"
+  }
+}
